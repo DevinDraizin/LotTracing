@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane stylesheets="@../CSS/buyers.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vendors.vendorsController">
+   <children>
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton graphicTextGap="12.0" onAction="#goBack" styleClass="primary-button-1" text="Go Back">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="MAIL_REPLY" size="22" />
+                     </graphic>
+                  </JFXButton>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label alignment="CENTER" style="-fx-font-size: 42;" text="Vendors" />
+                  <JFXSlider fx:id="slider" blockIncrement="1.0" indicatorPosition="RIGHT" max="40.0" min="8.0" minorTickCount="1" onDragDetected="#setFont" onKeyPressed="#setFont" onMouseDragged="#setFont" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <JFXTextField fx:id="searchField" focusColor="#4052af" labelFloat="true" promptText="Search Vendors">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+               <padding>
+                  <Insets bottom="28.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+         </top>
+         <left>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane style="-fx-background-color: white; -fx-border-color: #F5F5F5;">
+                           <children>
+                              <JFXButton alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" onAction="#addVendor" prefHeight="300.0" prefWidth="300.0" styleClass="primary-button-2" text="Add A Vendor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <graphic>
+                                    <OctIconView fill="WHITE" glyphName="PLUS" size="25" />
+                                 </graphic>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane style="-fx-background-color: white; -fx-border-color: #F5F5F5;">
+                           <children>
+                              <JFXButton alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" onAction="#editVendor" prefHeight="300.0" prefWidth="300.0" styleClass="primary-button-1" text="Edit A Vendor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <graphic>
+                                    <OctIconView fill="WHITE" glyphName="TOOLS" size="25" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane style="-fx-background-color: white; -fx-border-color: #F5F5F5;">
+                           <children>
+                              <JFXButton alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" onAction="#removeVendor" prefHeight="300.0" prefWidth="300.0" styleClass="primary-button-3" text="Remove A Vendor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <graphic>
+                                    <OctIconView fill="WHITE" glyphName="DASH" size="25" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane style="-fx-background-color: #F5F5F5;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXTreeTableView fx:id="table" showRoot="false" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="0.0">
+                     <columnResizePolicy>
+                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </JFXTreeTableView>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

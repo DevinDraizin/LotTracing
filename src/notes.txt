@@ -1,0 +1,60 @@
+Global Notes:
+
+
+- Create Global settings menu
+    * Create global font size slider
+
+- Change all DB queries to use parameterized statements
+
+*****************************************************************************************************************************************
+
+Products:
+
+- Lets see how the card look for the add/edit/remove product UI looks
+
+- WHEN WE ADD A NEW PRODUCT CATEGORY WE HAVE TO GENERATE
+  PRIMARY KEY NAME IN FOLLOWING FORMAT: '3 letter name'_Part_Number
+  PART NUMBERS ARE USED AS PRIMARY KEYS AND WE HARD CODE THE
+  '_Part_Number' PART IN THE SQL QUERY ----SEE 'getProductDetails' ----
+
+    Product Builder:
+
+    Requirements:
+
+    - Add new product category (table) to db
+        * Add category abbreviation that will also be name of new table (Must be 3 letters long)
+        * Should be able to add a variable number of attributes along with a choice of data type (String or Int)
+
+    - Remove product category (table) from db
+        * Drops entire product category including all data in table
+
+    - Edit product category (table) from db
+        * Category name
+        * Category Attributes
+        * Category Attribute data type
+
+    - View existing categories in table
+
+
+
+    UI Design
+
+    Concepts:
+
+        - Maybe context menus on table to quickly remove/add/edit
+
+        - Tree Table View to display root nodes as product category
+          and the associated attributes as children nodes
+
+        - In addition to context menus we can have edit/remove by selecting
+          tree item and then clicking add or remove button
+
+        - Maybe make editing available directly on table view instead
+          of making separate popup
+
+        - List view in order to create "cards" for attributes
+
+
+    Must Have:
+
+        - Tree table view for displaying existing categories

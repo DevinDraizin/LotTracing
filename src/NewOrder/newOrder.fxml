@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="816.0" prefWidth="926.0" style="-fx-background-color: #F5F5F5;" stylesheets="@../CSS/buyers.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NewOrder.newOrderController">
+    <children>
+        <BorderPane layoutY="-276.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <HBox BorderPane.alignment="CENTER">
+                    <children>
+                  <JFXButton graphicTextGap="12.0" onAction="#goBack" styleClass="primary-button-1" text="Go Back">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="MAIL_REPLY" size="22" />
+                     </graphic>
+                  </JFXButton>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label alignment="CENTER" style="-fx-font-size: 42;" text="Create New Order" />
+                        <Region HBox.hgrow="ALWAYS" />
+                    </children>
+                    <padding>
+                        <Insets bottom="28.0" />
+                    </padding>
+                </HBox>
+            </top>
+            <bottom>
+                <JFXTreeTableView fx:id="table" prefHeight="300.0" prefWidth="600.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets left="100.0" right="100.0" />
+                    </BorderPane.margin>
+               <columnResizePolicy>
+                  <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy></JFXTreeTableView>
+            </bottom>
+            <padding>
+                <Insets bottom="32.0" left="14.0" right="14.0" top="14.0" />
+            </padding>
+            <center>
+                <VBox alignment="CENTER" fillWidth="false" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER" fillHeight="false" spacing="60.0" VBox.vgrow="SOMETIMES">
+                            <children>
+                                <AnchorPane prefHeight="200.0" prefWidth="500.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;" HBox.hgrow="SOMETIMES">
+                                    <children>
+                                        <VBox alignment="CENTER" fillWidth="false" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <JFXComboBox fx:id="companyName" labelFloat="true" minWidth="260.0" promptText="Company Name" />
+                                                <JFXComboBox fx:id="buyerName" labelFloat="true" minWidth="260.0" promptText="Buyer Name" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="40.0" top="40.0" />
+                                            </padding>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="500.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;" HBox.hgrow="SOMETIMES">
+                                    <children>
+                                        <VBox alignment="CENTER" fillWidth="false" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <JFXTextField alignment="CENTER" labelFloat="true" promptText="PO #" />
+                                                <JFXTextField alignment="CENTER" labelFloat="true" promptText="SO #" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="40.0" top="40.0" />
+                                    </padding>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" fillHeight="false" spacing="60.0" VBox.vgrow="SOMETIMES">
+                            <children>
+                                <AnchorPane prefHeight="200.0" prefWidth="500.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;" HBox.hgrow="SOMETIMES">
+                                    <children>
+                                        <VBox alignment="CENTER" fillWidth="false" spacing="26.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <JFXDatePicker fx:id="orderDatePicker" editable="false" promptText="Order Date" />
+                                                <JFXDatePicker fx:id="dueDatePicker" editable="false" promptText="Due Date" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="40.0" top="40.0" />
+                                            </padding>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="500.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;" HBox.hgrow="SOMETIMES">
+                                    <children>
+                                        <VBox alignment="CENTER" fillWidth="false" layoutX="4.0" prefHeight="176.0" prefWidth="425.0" spacing="26.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <JFXButton graphicTextGap="12.0" onAction="#addProduct" styleClass="primary-button-1" text="Add Product">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <graphic>
+                                          <OctIconView fill="WHITE" glyphName="PLUS" size="20" />
+                                       </graphic></JFXButton>
+                                                <JFXButton onAction="#createOrder" styleClass="primary-button-1" text="Create Order">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <graphic>
+                                          <OctIconView fill="WHITE" glyphName="DIFF" size="22" />
+                                       </graphic></JFXButton>
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="40.0" top="40.0" />
+                                            </padding>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

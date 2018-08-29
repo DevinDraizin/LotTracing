@@ -1,0 +1,102 @@
+.root
+{
+    -fx-background-color: white;
+}
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #3f50b5;
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #3f50b5;
+}
+
+.jfx-tab-pane .tab-header-area .jfx-rippler{
+    -jfx-rippler-fill: #baffff;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: #84ffff;
+}
+
+.jfx-tab-pane .tab .tab-label {
+    -fx-text-fill: white;
+    -fx-font-size: 28;
+}
+
+
+
+.jfx-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: white;
+    -fx-background-color: #757ce8;
+}
+
+
+.tab
+{
+    -fx-padding: 0 0 0 0;
+}
+
+.primary-button-1
+{
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+    -fx-background-color: #4052af;
+
+}
+
+.primary-button-1:hover
+{
+    -fx-background-color: #73c9cb;
+}
+
+
+.primary-button-2
+{
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+    -fx-background-color: #052b7e;
+
+}
+
+.primary-button-2:hover
+{
+    -fx-background-color: #73c9cb;
+}
+
+.primary-button-3
+{
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+    -fx-background-color: #A7D2EF;
+
+}
+
+.primary-button-3:hover
+{
+    -fx-background-color: #73c9cb;
+}
+
+.primary-button-4
+{
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+    -fx-background-color: #747ee1;
+
+}
+
+.primary-button-4:hover
+{
+    -fx-background-color: #73c9cb;
+}
+
+
+.desc-label
+{
+    -fx-text-fill: black;
+    -fx-font-size: 50;
+}

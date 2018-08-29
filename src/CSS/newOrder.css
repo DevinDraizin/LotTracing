@@ -1,0 +1,91 @@
+.root
+{
+    /*-fx-background-color: #ffd149;*/
+    -fx-background-color: #F5F5F5;
+}
+
+.jfx-button
+{
+    -fx-font-size: 18;
+    -fx-text-fill: white;
+    -fx-background-color: #c2185b;
+}
+
+.desc-label
+{
+    -fx-text-fill: black;
+    -fx-font-size: 50;
+}
+
+.label
+{
+    -fx-text-fill: black;
+    -fx-font-size: 18;
+}
+
+.jfx-date-picker {
+    -jfx-default-color: #c2185b;
+    -fx-text-inner-color: black;
+    -fx-font-size: 20;
+}
+
+.jfx-date-picker > .jfx-text-field {
+
+    -jfx-unfocus-color: #c2185b;
+    -fx-alignment: center;
+}
+
+.jfx-time-picker {
+    -jfx-default-color: #c2185b;
+    -fx-text-inner-color: black;
+    -fx-font-size: 20;
+}
+
+.jfx-time-picker > .jfx-text-field {
+
+    -jfx-unfocus-color: white;
+    -fx-alignment: center;
+}
+
+.combo-box
+{
+    -jfx-focus-color: #c2185b;
+    -jfx-unfocus-color: #c2185b;
+    -fx-font-size: 18px;
+}
+
+.combo-box-base .text{
+    -fx-fill: black;
+}
+
+.combo-box .arrow-button .arrow
+{
+    -fx-background-color: #c2185b;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover
+{
+    -fx-background-color: #fa5788;
+
+}
+
+.combo-box-popup .list-view .jfx-list-cell .jfx-rippler {
+
+    -jfx-rippler-fill: black;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
+{
+    -fx-background-color: #c2185b;
+
+}
+
+.jfx-text-field
+{
+    -fx-font-size: 18px;
+    -fx-text-fill: black;
+
+    -jfx-focus-color: #c2185b;
+    -jfx-unfocus-color: #c2185b;
+    -fx-prompt-text-fill: black;
+}
