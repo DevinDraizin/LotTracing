@@ -83,5 +83,10 @@ public class componentsController implements ControlledScreen
         addComponentUI.createUI();
     }
 
+    public void editComponent()
+    {
+        editComponentUI.createUI();
+    }
+
 
 }

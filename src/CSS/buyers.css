@@ -91,10 +91,12 @@
 
 .combo-box-popup .list-view .jfx-list-cell:even {
     -fx-background-color: #F5F5F5;
+    -fx-alignment: center-left;
 }
 
 .combo-box-popup .list-view .jfx-list-cell:odd{
     -fx-background-color: #F5F5F5;
+    -fx-alignment: center-left;
 }
 
 

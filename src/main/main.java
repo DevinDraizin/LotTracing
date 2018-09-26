@@ -55,7 +55,7 @@ public class main extends Application
     @Override
     public void start(Stage primaryStage)
     {
-        Boolean checkConn;
+        boolean checkConn;
 
         checkConn = DAL.DBConnectionManager.establishConnection();
 

@@ -6,12 +6,8 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import de.jensd.fx.glyphs.octicons.OctIcon;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -108,13 +104,15 @@ public class getProductsUI
 
     }
 
-    //So broken
+
     private static void initSideList(String category)
     {
         sideList.getItems().clear();
 
         ArrayList<String> columnNames = new ArrayList<>();
         DAL.productBuilderDAO.getCategoryDetails(columnNames,category);
+
+        exec = false;
 
         for (String columnName : columnNames)
         {
@@ -128,6 +126,8 @@ public class getProductsUI
 
             sideList.getItems().add(box);
         }
+
+        exec = true;
 
     }
 
@@ -181,6 +181,10 @@ public class getProductsUI
         table.setShowRoot(false);
     }
 
+
+    //The event listener for key should still trigger as long
+    //as we use an Action listener and not a specific listener since
+    //key press is an action
     private static JFXComboBox<String> getComboBox(String prompt)
     {
         JFXComboBox<String> combo = new JFXComboBox<>();

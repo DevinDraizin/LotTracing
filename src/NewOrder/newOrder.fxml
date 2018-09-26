@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane prefHeight="816.0" prefWidth="926.0" style="-fx-background-color: #F5F5F5;" stylesheets="@../CSS/buyers.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NewOrder.newOrderController">
     <children>
         <BorderPane layoutY="-276.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -41,6 +42,15 @@
             </top>
             <bottom>
                 <JFXTreeTableView fx:id="table" prefHeight="300.0" prefWidth="600.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;" BorderPane.alignment="CENTER">
+                    <placeholder>
+                        <Label onMouseClicked="#addProduct" text="The current purchase order is empty" textFill="#052b7e">
+                            <tooltip>
+                                <Tooltip text="Click me to add products or use the 'Add Product' button"/>
+                            </tooltip>
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></Label>
+                    </placeholder>
                     <BorderPane.margin>
                         <Insets left="100.0" right="100.0" />
                     </BorderPane.margin>

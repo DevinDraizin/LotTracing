@@ -277,7 +277,6 @@ public class productBuilderDAO
             String pstmt = "INSERT INTO " + product.categoryName.getValue() + constructValues(product,attributes,partNumber);
 
             stmt = DBConnectionManager.con.prepareStatement(pstmt);
-            System.out.println(pstmt);
 
             stmt.executeUpdate();
 
@@ -324,6 +323,41 @@ public class productBuilderDAO
             try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
         }
 
+    }
+
+    //This method will remove a selected product from it's respective category table
+    //DO NOT CALL THIS METHOD DIRECTLY. Since a part number exists in
+    //the products table AND it's respective category table we must remove
+    //it from both. This will be called in conjunction with the remove product
+    //method in the productDAO which will handle removing it from the product table.
+    public static boolean removeProduct(String category, String partNumber)
+    {
+        PreparedStatement stmt = null;
+
+        try
+        {
+            String pstmt = "DELETE FROM " + category + " WHERE " + category + "_Part_Number = ?;";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            stmt.setString(1,partNumber);
+
+            int i = stmt.executeUpdate();
+
+            if(i==1)
+            {
+                return true;
+            }
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+        return false;
     }
 
 }

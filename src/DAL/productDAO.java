@@ -19,7 +19,7 @@ public class productDAO
     //objects.
     public static ObservableList<product> getProductList()
     {
-        ObservableList<product> productList =  FXCollections.observableArrayList();
+        ObservableList<product> productList = FXCollections.observableArrayList();
 
         PreparedStatement stmt = null;
         ResultSet myRst = null;
@@ -198,6 +198,41 @@ public class productDAO
         finally
         {
             try { if (myRst != null) myRst.close(); } catch (Exception ignored) {}
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+        return false;
+    }
+
+
+    //This will removed a specified product from the product table
+    //DO NOT CALL THIS METHOD DIRECTLY. Since a part number exists in
+    //the products table AND it's respective category table we must remove
+    //it from both. This will be called in conjunction with the remove product
+    //method in the productBuilderDAO which will handle removing from its category table.
+    public static boolean removeProduct(String partNumber)
+    {
+        PreparedStatement stmt = null;
+
+        try
+        {
+            String pstmt = "DELETE FROM Products WHERE Part_Number = ?";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            stmt.setString(1,partNumber);
+            int i = stmt.executeUpdate();
+
+            if(i==1)
+            {
+                return true;
+            }
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
             try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
         }
 

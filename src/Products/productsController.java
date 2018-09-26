@@ -105,15 +105,17 @@ public class productsController implements ControlledScreen
 
 
         //Add context menus to each row so we can pull the specific product instance
-        //into the context menu. This add the edit product option to the table.
+        //into the context menu. This adds the edit and remove product option to the table.
         //NOTE: We should pass a reference to the tale to the editProductUI and
         //move this there
         table.setRowFactory(tableView -> {
             final TreeTableRow<product> row = new TreeTableRow<>();
             final ContextMenu contextMenu = new ContextMenu();
             final MenuItem editProduct = new MenuItem("     Edit Product    ");
+            final MenuItem removeProduct = new MenuItem("     Remove Product    ");
             editProduct.setOnAction(event -> editProductUI.createUI(row.getItem()));
-            contextMenu.getItems().add(editProduct);
+            removeProduct.setOnAction(event -> removeProductUI.createUI(row.getItem(),productList));
+            contextMenu.getItems().addAll(editProduct,removeProduct);
             // Set context menu on row, but use a binding to make it only show for non-empty rows:
             row.contextMenuProperty().bind(
                     Bindings.when(row.emptyProperty())
@@ -167,11 +169,23 @@ public class productsController implements ControlledScreen
         addProductUI.createUI(productList);
     }
 
+    private product getSelectedProduct()
+    {
+        if(table.getSelectionModel().getSelectedItem() == null)
+        {
+            return null;
+        }
+
+        return table.getSelectionModel().getSelectedItem().getValue();
+    }
+
     public void editProduct()
     {
-        if(table.getSelectionModel().getSelectedItem() != null)
+        product selected = getSelectedProduct();
+
+        if(selected != null)
         {
-            editProductUI.createUI(table.getSelectionModel().getSelectedItem().getValue());
+            editProductUI.createUI(selected);
         }
         else
         {
@@ -184,10 +198,19 @@ public class productsController implements ControlledScreen
 
     public void removeProduct()
     {
-        Alert test = new Alert(Alert.AlertType.WARNING);
-        test.setTitle("");
-        test.setHeaderText("This function has not been implemented yet");
-        test.show();
+        product selected = getSelectedProduct();
+
+        if(selected != null)
+        {
+            removeProductUI.createUI(selected,productList);
+        }
+        else
+        {
+            Alert test = new Alert(Alert.AlertType.INFORMATION);
+            test.setTitle("");
+            test.setHeaderText("Please select a product to remove");
+            test.show();
+        }
     }
 
 

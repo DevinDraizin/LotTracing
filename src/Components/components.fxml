@@ -63,7 +63,7 @@
                                 </AnchorPane>
                                 <AnchorPane style="-fx-background-color: white; -fx-border-color: #F5F5F5;">
                                     <children>
-                                        <JFXButton alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" prefHeight="300.0" prefWidth="300.0" styleClass="primary-button-1" text="Edit A Component" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <JFXButton alignment="CENTER" contentDisplay="RIGHT" onAction="#editComponent" graphicTextGap="12.0" prefHeight="300.0" prefWidth="300.0" styleClass="primary-button-1" text="Edit A Component" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <graphic>
                                                 <OctIconView fill="WHITE" glyphName="TOOLS" size="25" />
                                             </graphic>
