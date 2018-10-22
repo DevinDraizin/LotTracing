@@ -22,6 +22,7 @@ public class staticLookupCommons
     {
         JFXButton button = new JFXButton(title);
         OctIconView view = new OctIconView(icon);
+        view.setGlyphSize(18);
         view.setFill(Color.valueOf("white"));
         button.setGraphic(view);
         button.setGraphicTextGap(12);
@@ -76,4 +77,7 @@ public class staticLookupCommons
             return false;
         }
     }
+
+
+
 }

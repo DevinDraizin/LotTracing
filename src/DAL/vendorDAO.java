@@ -117,6 +117,10 @@ public class vendorDAO
         return -1;
     }
 
+    //As long as we execute this statement
+    //immediately after an insert statement
+    //we can extract the auto-increment value
+    //generated
     public static int getLastID()
     {
         PreparedStatement stmt = null;

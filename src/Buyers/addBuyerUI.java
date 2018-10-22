@@ -95,17 +95,6 @@ public class addBuyerUI
 
         companyDrop.setPromptText("Select A Company");
 
-        /*
-        ResultSet myRs = DBConnection.mainConnection.executeStatement("SELECT DISTINCT Company FROM Buyers");
-
-        while(myRs.next())
-        {
-            companyDrop.getItems().add(myRs.getString(1));
-        }
-
-        DBConnection.mainConnection.closeStatement();
-        */
-
         DAL.buyerDAO.getCompanies(companyDrop);
 
 
