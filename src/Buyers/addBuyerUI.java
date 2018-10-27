@@ -34,7 +34,6 @@ public class addBuyerUI
         if(sanFields(buyerNameField,buyerEmailField,companyDrop,buyerPhoneField))
         {
 
-
             buyer newBuyer = new buyer(null,buyerNameField.getText(),companyDrop.getSelectionModel().getSelectedItem(), buyerEmailField.getText(), buyerPhoneField.getText());
 
             newBuyer.phoneNumber.setValue(newBuyer.phoneNumber.getValue().replace("-","."));
@@ -56,7 +55,7 @@ public class addBuyerUI
             Alert success = new Alert(Alert.AlertType.CONFIRMATION);
             success.setTitle("Success");
             success.setHeaderText("Successfully added buyer");
-            success.showAndWait();
+            success.show();
 
         }
 
@@ -72,7 +71,18 @@ public class addBuyerUI
             err.setTitle("Validation Error");
             err.setHeaderText("");
             err.setContentText("One or more fields are empty");
-            err.showAndWait();
+            err.show();
+
+            return false;
+        }
+
+        if(DAL.buyerDAO.findBuyer(buyerNameField.getText()) != -1)
+        {
+            Alert err = new Alert(Alert.AlertType.WARNING);
+            err.setTitle("Invalid Input");
+            err.setHeaderText("There already exists a buyer with that name");
+            err.setContentText("");
+            err.show();
 
             return false;
         }
@@ -262,7 +272,7 @@ public class addBuyerUI
         Scene scene = new Scene(mainLayout);
         scene.getStylesheets().add("CSS/buyers.css");
         window.setScene(scene);
-        window.showAndWait();
+        window.show();
 
     }
 }

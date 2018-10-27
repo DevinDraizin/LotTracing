@@ -11,17 +11,17 @@ public class purchaseOrder extends RecursiveTreeObject<purchaseOrder>
     public SimpleStringProperty SONumber;
     public LocalDate PODate;
     public LocalDate dueDate;
-    public SimpleStringProperty buyerID;
+    public Integer buyerID;
     public SimpleStringProperty memos;
 
-    public purchaseOrder(String PONumber, String SONumber, LocalDate PODate, LocalDate dueDate, String buyerID, String memos)
+    public purchaseOrder(String PONumber, String SONumber, LocalDate PODate, LocalDate dueDate, Integer buyerID, String memos)
     {
-        this.PONumber.setValue(PONumber);
-        this.SONumber.setValue(SONumber);
+        this.PONumber = new SimpleStringProperty(PONumber);
+        this.SONumber = new SimpleStringProperty(SONumber);
         this.PODate = PODate;
         this.dueDate = dueDate;
-        this.buyerID.setValue(buyerID);
-        this.memos.setValue(memos);
+        this.buyerID = buyerID;
+        this.memos = new SimpleStringProperty(memos);
     }
 
     public purchaseOrder()

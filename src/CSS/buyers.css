@@ -12,6 +12,12 @@
     -fx-font-size: 20;
 }
 
+.header-label-large
+{
+    -fx-text-fill: #4052af;
+    -fx-font-size: 34;
+}
+
 .primary-button-1
 {
     -fx-text-fill: white;

@@ -30,7 +30,7 @@ public class removeBuyerUI
         buyerDrop.setPromptText("Select Buyer ID");
 
 
-        DAL.buyerDAO.getOrderedBuyerSelector(buyerDrop);
+        DAL.buyerDAO.getBuyerSelector(buyerDrop);
 
         buyerDrop.setOnAction(event -> updateLabel(buyerDrop.getSelectionModel().getSelectedItem(),name,company,Email,phone));
 
@@ -41,7 +41,7 @@ public class removeBuyerUI
     //in order to initialize the labels on the UI with the buyer info
     private static void updateLabel(String ID, Label name, Label company, Label Email, Label phone)
     {
-        selectedID = Integer.parseInt(ID.substring(0,ID.indexOf(" ")));
+        selectedID = DAL.buyerDAO.findBuyer(ID);
 
         buyer selectedBuyer = DAL.buyerDAO.getBuyer(selectedID);
 
@@ -95,6 +95,7 @@ public class removeBuyerUI
                 if(buyerList.get(i).buyerID.getValue().equals(selectedID))
                 {
                     buyerList.remove(i);
+                    break;
                 }
             }
 
@@ -103,7 +104,7 @@ public class removeBuyerUI
             Alert success = new Alert(Alert.AlertType.CONFIRMATION);
             success.setTitle("Success");
             success.setHeaderText("Successfully removed buyer");
-            success.showAndWait();
+            success.show();
         }
     }
 
@@ -203,6 +204,6 @@ public class removeBuyerUI
         Scene scene = new Scene(mainLayout);
         scene.getStylesheets().add("CSS/buyers.css");
         window.setScene(scene);
-        window.showAndWait();
+        window.show();
     }
 }

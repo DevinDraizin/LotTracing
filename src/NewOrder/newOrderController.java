@@ -2,6 +2,7 @@ package NewOrder;
 
 
 import Commons.staticLookupCommons;
+import DAL.newOrderDAO;
 import Products.product;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -28,7 +29,7 @@ import screensframework.ScreensController;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
+import java.util.Optional;
 
 
 public class newOrderController implements ControlledScreen
@@ -50,6 +51,9 @@ public class newOrderController implements ControlledScreen
 
     @FXML
     JFXTreeTableView<product> productTable;
+
+    @FXML
+    JFXTextArea memoField;
 
     @FXML
     JFXTabPane tabPane;
@@ -286,7 +290,7 @@ public class newOrderController implements ControlledScreen
 
         window.setScene(scene);
 
-        mainLayout.requestFocus();
+        input.requestFocus();
         window.showAndWait();
     }
 
@@ -359,6 +363,8 @@ public class newOrderController implements ControlledScreen
         tabPane.requestFocus();
     }
 
+
+
     //This method wraps the event listener for the add button on the main
     //UI. Since we need to check that an item has been selected before we add it.
     //getSelectedItem() will return null when no item is selected
@@ -398,12 +404,107 @@ public class newOrderController implements ControlledScreen
 
     private void initializeCompanyDrop()
     {
-        DAL.buyerDAO.getBuyerCompanySelector(companyName);
+        DAL.buyerDAO.getCompanies(companyName);
     }
+
 
     public void createOrder()
     {
+        if(addedProductList.isEmpty())
+        {
+            Alert err = new Alert(Alert.AlertType.ERROR);
+            err.setTitle("Invalid Input Error");
+            err.setHeaderText("You cannot create an empty purchase order");
+            err.setContentText("");
+            err.show();
 
+            return;
+        }
+
+        //If we make it here assume that all fields have valid information
+        Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+        conf.setTitle("Confirmation");
+        conf.setHeaderText("Create Purchase Order?");
+        conf.setContentText("");
+
+        ButtonType yes = new ButtonType("Yes");
+        ButtonType  no = new ButtonType("No");
+
+
+        conf.getButtonTypes().setAll(yes,no);
+        Optional<ButtonType> result = conf.showAndWait();
+
+
+        if (result.isPresent() && result.get() == yes)
+        {
+            insertPO();
+        }
+
+        clearInfo();
+
+        //Clear the ordered part table and then
+        //switch screens
+        addedTable.getRoot().getChildren().clear();
+        searchField.setVisible(false);
+        myController.setScreen(main.screen1ID);
+        tabPane.getSelectionModel().select(0);
+
+        Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+        success.setTitle("Success");
+        success.setHeaderText("Successfully created new purchase order");
+        success.setContentText("");
+        success.show();
+
+
+    }
+
+    //Once we confirm the creation of the
+    //new PO we initialize a new purchaseOrder object to
+    //insert into the database. After we insert
+    //the PO we can finish initializing all the
+    //orderedParts associated with the PO
+    //
+    //NOTE: DO NOT CALL DIRECTLY
+    private void insertPO()
+    {
+        purchaseOrder newOrder = new purchaseOrder();
+        newOrder.PONumber = new SimpleStringProperty(POField.getText());
+        newOrder.SONumber = new SimpleStringProperty(SOField.getText());
+        newOrder.PODate = orderDatePicker.getValue();
+        newOrder.dueDate = dueDatePicker.getValue();
+        newOrder.buyerID = (DAL.buyerDAO.findBuyer(buyerName.getSelectionModel().getSelectedItem()));
+        if(!memoField.getText().isEmpty())
+        {
+            newOrder.memos = new SimpleStringProperty(memoField.getText());
+        }
+
+
+        DAL.newOrderDAO.insertPurchaseOrder(newOrder);
+        insertOrderedParts();
+    }
+
+
+    //This method should only be called from
+    //inside insertPO(). Here we will take
+    //all the existing orderedPart objects and
+    //insert them into the database, this will
+    //return the transaction id we can also use
+    //to finish initializing the objects before
+    //we finish.
+    //
+    //NOTE: DO NOT CALL DIRECTLY
+    //Only valid when called from
+    //inside insertPO()
+    private void insertOrderedParts()
+    {
+        for (orderedPart part : addedProductList)
+        {
+            int ID;
+
+            ID = newOrderDAO.insertOrderedPart(part);
+
+            part.transactionID = new SimpleIntegerProperty(ID);
+        }
     }
 
     public void addProduct()
@@ -411,12 +512,60 @@ public class newOrderController implements ControlledScreen
         checkSelectedElement();
     }
 
-    public void goBack()
+    private void clearInfo()
     {
         //Clear the ordered part table and then
         //switch screens
-        addedTable.getRoot().getChildren().clear();
+        addedProductList.clear();
         myController.setScreen(main.screen1ID);
+        tabPane.getSelectionModel().select(0);
+        buyerName.getSelectionModel().clearSelection();
+        companyName.getSelectionModel().clearSelection();
+        POField.clear();
+        SOField.clear();
+        memoField.clear();
+        orderDatePicker.setValue(null);
+        dueDatePicker.setValue(null);
+    }
+
+    public void goBack()
+    {
+        if(!companyName.getSelectionModel().isEmpty()
+                || !buyerName.getSelectionModel().isEmpty()
+                || !POField.getText().isEmpty()
+                || !SOField.getText().isEmpty()
+                || orderDatePicker.getValue() != null
+                || dueDatePicker.getValue() != null)
+        {
+            Alert conf = new Alert(Alert.AlertType.WARNING);
+            conf.setTitle("Confirmation");
+            conf.setHeaderText("Are you sure you want to go back?");
+            conf.setContentText("This will remove any incomplete purchase order data");
+
+            ButtonType yes = new ButtonType("Yes");
+            ButtonType  no = new ButtonType("No");
+
+
+            conf.getButtonTypes().setAll(yes,no);
+            Optional<ButtonType> result = conf.showAndWait();
+
+
+            if (result.isPresent() && result.get() == yes)
+            {
+                clearInfo();
+            }
+
+        }
+        else
+        {
+            //Clear the ordered part table and then
+            //switch screens
+            addedTable.getRoot().getChildren().clear();
+            myController.setScreen(main.screen1ID);
+            tabPane.getSelectionModel().select(0);
+        }
+
+
     }
 
 

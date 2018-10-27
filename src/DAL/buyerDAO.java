@@ -209,7 +209,6 @@ public class buyerDAO
             try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
         }
 
-        return;
     }
 
     //This method initializes a combo box with companies from the
@@ -246,6 +245,7 @@ public class buyerDAO
         return false;
     }
 
+    /*
     //Initializes a combo box with all existing buyer names and IDs
     public static boolean getOrderedBuyerSelector(JFXComboBox<String> buyerSelector)
     {
@@ -278,6 +278,8 @@ public class buyerDAO
 
         return false;
     }
+    */
+
 
 
     //Initializes a combo box with all existing buyer names
@@ -313,25 +315,30 @@ public class buyerDAO
         return false;
     }
 
-    //Initializes a combo box with all existing buyer companies
-    public static boolean getBuyerCompanySelector(JFXComboBox<String> buyerSelector)
+    //Returns the ID of a buyer given a name
+    //returns -1 if buyer does not exist
+    public static int findBuyer(String name)
     {
         PreparedStatement stmt = null;
         ResultSet myRst = null;
 
         try
         {
-            String pstmt = "SELECT DISTINCT Company FROM Buyers";
+            String pstmt = "SELECT Buyer_ID FROM Buyers WHERE Buyer_Name = ?;";
 
             stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            stmt.setString(1,name);
             myRst = stmt.executeQuery();
 
-            while(myRst.next())
+            boolean check = myRst.next();
+
+            if(!check)
             {
-                buyerSelector.getItems().add(myRst.getString(1));
+                return -1;
             }
 
-            return true;
+            return myRst.getInt(1);
+
 
         } catch (SQLException e)
         {
@@ -343,8 +350,12 @@ public class buyerDAO
             try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
         }
 
-        return false;
+
+        return -1;
+
     }
+
+
 
 
 }

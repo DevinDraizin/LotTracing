@@ -58,7 +58,7 @@ public class editBuyerUI
             Alert success = new Alert(Alert.AlertType.CONFIRMATION);
             success.setTitle("Success");
             success.setHeaderText("Successfully edited buyer");
-            success.showAndWait();
+            success.show();
 
         }
     }
@@ -71,7 +71,7 @@ public class editBuyerUI
 
         buyerSelector.setPromptText("Select Buyer To Edit");
 
-        DAL.buyerDAO.getOrderedBuyerSelector(buyerSelector);
+        DAL.buyerDAO.getBuyerSelector(buyerSelector);
 
         buyerSelector.setOnAction(e -> updateFields(buyerNameField,buyerEmailField,companyDrop,buyerPhoneField,extensionField,buyerSelector));
 
@@ -99,7 +99,7 @@ public class editBuyerUI
 
 
 
-            int buyerID = Integer.parseInt(buyerSelector.getSelectionModel().getSelectedItem().substring(0, 1));
+            int buyerID = DAL.buyerDAO.findBuyer(buyerSelector.getSelectionModel().getSelectedItem());
 
             for (buyer aList : list)
             {
@@ -213,7 +213,7 @@ public class editBuyerUI
         Scene scene = new Scene(mainLayout);
         scene.getStylesheets().add("CSS/buyers.css");
         window.setScene(scene);
-        window.showAndWait();
+        window.show();
 
     }
 }

@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
@@ -56,61 +57,78 @@
                            <children>
                               <BorderPane layoutX="20.0" layoutY="-5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <center>
-                                    <VBox alignment="CENTER" prefHeight="660.0" prefWidth="898.0" spacing="20.0">
+                                    <VBox alignment="CENTER" prefHeight="660.0" prefWidth="898.0" spacing="60.0">
                                        <children>
-                                          <AnchorPane maxWidth="700.0" prefHeight="200.0" prefWidth="500.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;">
-                                             <children>
-                                                <VBox alignment="CENTER" fillWidth="false" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <children>
-                                                      <JFXTextField fx:id="POField" alignment="CENTER" labelFloat="true" promptText="PO #">
-                                                         <tooltip>
-                                                            <Tooltip text="Purchase Order Number" />
-                                                         </tooltip>
-                                                      </JFXTextField>
-                                                      <JFXTextField fx:id="SOField" alignment="CENTER" labelFloat="true" promptText="SO #">
-                                                         <tooltip>
-                                                            <Tooltip text="Sales Order Number" />
-                                                         </tooltip>
-                                                      </JFXTextField>
-                                                   </children>
-                                                </VBox>
-                                             </children>
+                                          <HBox alignment="CENTER" spacing="80.0">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
-                                          </AnchorPane>
-                                          <AnchorPane maxWidth="700.0" prefHeight="200.0" prefWidth="500.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;">
                                              <children>
-                                                <VBox alignment="CENTER" fillWidth="false" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <AnchorPane maxHeight="260.0" maxWidth="600.0" prefHeight="260.0" prefWidth="600.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;">
                                                    <children>
-                                                      <JFXComboBox fx:id="companyName" labelFloat="true" minWidth="260.0" promptText="Company Name" />
-                                                      <JFXComboBox fx:id="buyerName" labelFloat="true" minWidth="260.0" promptText="Buyer Name" />
+                                                      <VBox alignment="CENTER" fillWidth="false" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <JFXTextField fx:id="POField" alignment="CENTER" labelFloat="true" promptText="PO #">
+                                                               <tooltip>
+                                                                  <Tooltip text="Purchase Order Number" />
+                                                               </tooltip>
+                                                            </JFXTextField>
+                                                            <JFXTextField fx:id="SOField" alignment="CENTER" labelFloat="true" promptText="SO #">
+                                                               <tooltip>
+                                                                  <Tooltip text="Sales Order Number" />
+                                                               </tooltip>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
                                                    </children>
-                                                   <padding>
-                                                      <Insets bottom="40.0" top="40.0" />
-                                                   </padding>
-                                                </VBox>
+                                                </AnchorPane>
+                                                <AnchorPane maxHeight="260.0" maxWidth="600.0" prefHeight="260.0" prefWidth="600.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;">
+                                                   <children>
+                                                      <VBox alignment="CENTER" fillWidth="false" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <JFXComboBox fx:id="companyName" labelFloat="true" minWidth="260.0" promptText="Company Name" />
+                                                            <JFXComboBox fx:id="buyerName" labelFloat="true" minWidth="260.0" promptText="Buyer Name" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets bottom="40.0" top="40.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
                                              </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" spacing="80.0">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
-                                          </AnchorPane>
-                                          <AnchorPane maxWidth="700.0" prefHeight="200.0" prefWidth="500.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;">
                                              <children>
-                                                <VBox alignment="CENTER" fillWidth="false" spacing="26.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <AnchorPane maxHeight="260.0" maxWidth="600.0" prefHeight="260.0" prefWidth="600.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;">
                                                    <children>
-                                                      <JFXDatePicker fx:id="orderDatePicker" editable="false" promptText="Order Date" />
-                                                      <JFXDatePicker fx:id="dueDatePicker" editable="false" promptText="Due Date" />
+                                                      <VBox alignment="CENTER" fillWidth="false" spacing="26.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <JFXDatePicker fx:id="orderDatePicker" editable="false" promptText="Order Date" />
+                                                            <JFXDatePicker fx:id="dueDatePicker" editable="false" promptText="Due Date" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets bottom="60.0" left="40.0" right="40.0" top="60.0" />
+                                                         </padding>
+                                                      </VBox>
                                                    </children>
-                                                   <padding>
-                                                      <Insets bottom="60.0" left="40.0" right="40.0" top="60.0" />
-                                                   </padding>
-                                                </VBox>
+                                                </AnchorPane>
+                                                <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="260.0" maxWidth="600.0" prefHeight="260.0" prefWidth="600.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;">
+                                                   <children>
+                                                      <VBox alignment="CENTER" fillWidth="false" spacing="26.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <padding>
+                                                            <Insets bottom="60.0" left="40.0" right="40.0" top="60.0" />
+                                                         </padding>
+                                                         <children>
+                                                            <JFXTextArea fx:id="memoField" promptText="Memo" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
                                              </children>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </AnchorPane>
+                                          </HBox>
                                        </children>
                                     </VBox>
                                  </center>
@@ -199,7 +217,7 @@
                                                       <OctIconView fill="WHITE" glyphName="CHEVRON_LEFT" size="22" />
                                                    </graphic>
                                                 </JFXButton>
-                                                <JFXButton onAction="#createOrder" styleClass="primary-button-1" text="Create Order">
+                                                <JFXButton graphicTextGap="12.0" onAction="#createOrder" styleClass="primary-button-1" text="Create Order">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
