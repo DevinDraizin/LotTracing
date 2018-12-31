@@ -6,10 +6,11 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
-import main.main;
+import main.Main;
 import screensframework.ControlledScreen;
 import screensframework.ScreensController;
 
@@ -22,7 +23,7 @@ public class componentsController implements ControlledScreen
     @FXML
     JFXTextField searchField;
 
-    private static ObservableList<component> componentList;
+    private static ObservableList<component> componentList = FXCollections.observableArrayList();
     private static String nullCharacter = "--";
 
     ScreensController myController;
@@ -30,6 +31,11 @@ public class componentsController implements ControlledScreen
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
+    }
+
+    @Override
+    public void update() {
+
     }
 
     public void initialize()
@@ -50,8 +56,7 @@ public class componentsController implements ControlledScreen
         sectionCol.setCellValueFactory(param -> param.getValue().getValue().description);
 
 
-
-        componentList = DAL.componentDAO.getComponentsList();
+        DAL.componentDAO.getComponentsList(componentList);
 
         sectionCol.setCellValueFactory(param -> (param.getValue().getValue().section.getValue() == null) ? new SimpleStringProperty(nullCharacter) : param.getValue().getValue().section);
 
@@ -75,7 +80,7 @@ public class componentsController implements ControlledScreen
 
     public void goBack()
     {
-        myController.setScreen(main.screen1ID);
+        myController.setScreen(Main.screen1ID);
     }
 
     public void addComponent()
@@ -86,6 +91,11 @@ public class componentsController implements ControlledScreen
     public void editComponent()
     {
         editComponentUI.createUI();
+    }
+
+    public void removeComponent()
+    {
+        removeComponentUI.createUI();
     }
 
 
