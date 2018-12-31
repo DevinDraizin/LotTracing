@@ -23,7 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import main.main;
+import main.Main;
 import screensframework.ControlledScreen;
 import screensframework.ScreensController;
 
@@ -35,6 +35,7 @@ import java.util.Optional;
 public class newOrderController implements ControlledScreen
 {
     ScreensController myController;
+
 
 
     @FXML
@@ -58,7 +59,7 @@ public class newOrderController implements ControlledScreen
     @FXML
     JFXTabPane tabPane;
 
-
+    private static ObservableList<product> productList = FXCollections.observableArrayList();
     private static ObservableList<orderedPart> addedProductList;
     private static String nullCharacter = "--";
 
@@ -67,7 +68,6 @@ public class newOrderController implements ControlledScreen
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
-
 
 
     public void initialize()
@@ -80,6 +80,15 @@ public class newOrderController implements ControlledScreen
         searchField.setVisible(false);
         tabPane.requestFocus();
     }
+
+    @Override
+    public void update()
+    {
+        DAL.productDAO.getProductList(productList);
+        initializeBuyerDrop();
+        initializeCompanyDrop();
+    }
+
 
     private void initSearchField()
     {
@@ -122,10 +131,10 @@ public class newOrderController implements ControlledScreen
         JFXTreeTableColumn<product,String> productCategoryCol = new JFXTreeTableColumn<>("Product Category");
         productCategoryCol.setCellValueFactory(param -> param.getValue().getValue().productCategory);
 
-        ObservableList<product> productList;
+
         //This is the list that the table will pull all of its data from
         //here we pull data from the database to initialize the table
-        productList = DAL.productDAO.getProductList();
+        DAL.productDAO.getProductList(productList);
 
 
         //By default null values are displayed as empty strings so lets overwrite that to display the 'nullCharacter' string instead
@@ -162,10 +171,12 @@ public class newOrderController implements ControlledScreen
     //This will take a selected product and open a quantity UI
     //Then pass the information to the table in the new order page
     //product will always be non null
+    //
+    //EDIT: Not anymore
     private void addSelectedProduct(product product, JFXTextField input, Stage window)
     {
         String in = input.getText();
-        Integer qty;
+        int qty;
 
 
         //Here we need to extract the qty ordered.
@@ -365,7 +376,7 @@ public class newOrderController implements ControlledScreen
 
 
 
-    //This method wraps the event listener for the add button on the main
+    //This method wraps the event listener for the add button on the Main
     //UI. Since we need to check that an item has been selected before we add it.
     //getSelectedItem() will return null when no item is selected
     //So check for null and if not we can directly call the addSelectedProduct
@@ -389,6 +400,7 @@ public class newOrderController implements ControlledScreen
     public void previousPage()
     {
         searchField.setVisible(false);
+        tabPane.requestFocus();
         tabPane.getSelectionModel().select(0);
     }
 
@@ -399,11 +411,13 @@ public class newOrderController implements ControlledScreen
 
     private void initializeBuyerDrop()
     {
+        buyerName.getItems().clear();
         DAL.buyerDAO.getBuyerSelector(buyerName);
     }
 
     private void initializeCompanyDrop()
     {
+        companyName.getItems().clear();
         DAL.buyerDAO.getCompanies(companyName);
     }
 
@@ -439,6 +453,10 @@ public class newOrderController implements ControlledScreen
         {
             insertPO();
         }
+        else
+        {
+            return;
+        }
 
         clearInfo();
 
@@ -446,7 +464,7 @@ public class newOrderController implements ControlledScreen
         //switch screens
         addedTable.getRoot().getChildren().clear();
         searchField.setVisible(false);
-        myController.setScreen(main.screen1ID);
+        myController.setScreen(Main.screen1ID);
         tabPane.getSelectionModel().select(0);
 
         Alert success = new Alert(Alert.AlertType.CONFIRMATION);
@@ -517,7 +535,7 @@ public class newOrderController implements ControlledScreen
         //Clear the ordered part table and then
         //switch screens
         addedProductList.clear();
-        myController.setScreen(main.screen1ID);
+        myController.setScreen(Main.screen1ID);
         tabPane.getSelectionModel().select(0);
         buyerName.getSelectionModel().clearSelection();
         companyName.getSelectionModel().clearSelection();
@@ -553,6 +571,7 @@ public class newOrderController implements ControlledScreen
             if (result.isPresent() && result.get() == yes)
             {
                 clearInfo();
+                searchField.setVisible(false);
             }
 
         }
@@ -561,8 +580,9 @@ public class newOrderController implements ControlledScreen
             //Clear the ordered part table and then
             //switch screens
             addedTable.getRoot().getChildren().clear();
-            myController.setScreen(main.screen1ID);
+            myController.setScreen(Main.screen1ID);
             tabPane.getSelectionModel().select(0);
+            searchField.setVisible(false);
         }
 
 
