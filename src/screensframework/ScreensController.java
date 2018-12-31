@@ -40,6 +40,7 @@
 
 package screensframework;
 
+import java.io.IOException;
 import java.util.HashMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -56,10 +57,12 @@ import javafx.util.Duration;
  *
  * @author Angie
  */
-public class ScreensController  extends StackPane {
+public class ScreensController extends StackPane {
     //Holds the screens to be displayed
 
     private HashMap<String, Node> screens = new HashMap<>();
+    //This will keep track of every screen's controller
+    private HashMap<String, ControlledScreen> controllers = new HashMap<>();
     
     public ScreensController() {
         super();
@@ -70,9 +73,19 @@ public class ScreensController  extends StackPane {
         screens.put(name, screen);
     }
 
+    public void addController(String name, ControlledScreen controller)
+    {
+        controllers.put(name,controller);
+    }
+
     //Returns the Node with the appropriate name
     public Node getScreen(String name) {
         return screens.get(name);
+    }
+
+    public ControlledScreen getController(String name)
+    {
+        return controllers.get(name);
     }
 
     //Loads the fxml file, add the screen to the screens collection and
@@ -84,12 +97,15 @@ public class ScreensController  extends StackPane {
             ControlledScreen myScreenController = ((ControlledScreen) myLoader.getController());
             myScreenController.setScreenParent(this);
             addScreen(name, loadScreen);
+            addController(name,myScreenController);
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             return false;
         }
     }
+
+
 
     //This method tries to display the screen with a predefined name.
     //First it makes sure the screen has been already loaded.  Then if there is more than
@@ -112,6 +128,9 @@ public class ScreensController  extends StackPane {
                         new KeyFrame(new Duration(400), t -> {
                             getChildren().remove(0);                    //remove the displayed screen
                             getChildren().add(0, screens.get(name));     //add the screen
+
+                            //Call update method every time we set a screen
+                            getController(name).update();
 
                             Timeline fadeIn = new Timeline(
                                     new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
