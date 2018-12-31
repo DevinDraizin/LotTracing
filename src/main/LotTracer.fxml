@@ -14,109 +14,109 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane stylesheets="@../CSS/Master.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.LotTracerController">
-   <children>
-      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <GridPane BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-              </rowConstraints>
-               <children>
-                  <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getBuyersScene" ripplerFill="#60ad5e" styleClass="primary-button-1" text="Buyers">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                     <graphic>
-                        <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_MULTIPLE_OUTLINE" size="50" />
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getComponentsScene" ripplerFill="BLACK" styleClass="primary-button-3" text="Components" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="PUZZLE_PIECE" size="50" />
-                     </graphic>
-                  </JFXButton>
-                              <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getNewOrderScene" ripplerFill="#4b636e" styleClass="primary-button-2" text="New Order" GridPane.columnIndex="1">
-                                  <graphic>
-                                      <OctIconView fill="WHITE" glyphName="DIFF" size="50" />
-                                  </graphic>
-                                  <font>
-                                      <Font size="30.0" />
-                                  </font>
-                  </JFXButton>
-                  <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" ripplerFill="BLACK" style="-fx-background-color: white;" styleClass="primary-button-1" text=" " GridPane.columnIndex="2">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="106.0" fitWidth="283.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/logo.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                              <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getReturnItemsScene" ripplerFill="#ae52d4" styleClass="primary-button-4" text="Return Items" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                  <graphic>
-                                      <MaterialDesignIconView fill="WHITE" glyphName="KEYBOARD_RETURN" size="50" />
-                                  </graphic>
-                                  <font>
-                                      <Font size="30.0" />
-                                  </font>
-                  </JFXButton>
-                  <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getLotNumbersScene" ripplerFill="#ae52d4" styleClass="primary-button-4" text="Lot Numbers" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                     <graphic>
-                        <MaterialDesignIconView fill="WHITE" glyphName="BARCODE_SCAN" size="50" />
-                     </graphic>
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </JFXButton>
-                              <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getShipItemsScene" ripplerFill="#4b636e" styleClass="primary-button-2" text="Ship Items" GridPane.columnIndex="3">
-                                  <graphic>
-                                      <MaterialDesignIconView fill="WHITE" glyphName="TRUCK_DELIVERY" size="50" />
-                                  </graphic>
-                                  <font>
-                                      <Font size="30.0" />
-                                  </font>
-                  </JFXButton>
-                  <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getVendorsScene" ripplerFill="#60ad5e" styleClass="primary-button-1" text="Vendors" GridPane.columnIndex="4">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                     <graphic>
-                        <MaterialDesignIconView fill="WHITE" glyphName="STORE" size="50" />
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getProductsScene" ripplerFill="BLACK" styleClass="primary-button-3" text="Products" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                     <graphic>
-                        <MaterialDesignIconView fill="WHITE" glyphName="DROPBOX" size="50" />
-                     </graphic>
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </JFXButton>
-                              <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getSearchScene" ripplerFill="#60ad5e" styleClass="primary-button-1" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                  <graphic>
-                                      <OctIconView fill="WHITE" glyphName="EYE" size="50" />
-                                  </graphic>
-                                  <font>
-                                      <Font size="30.0" />
-                                  </font>
-                  </JFXButton>
-               </children>
-            </GridPane>
-         </center>
-      </BorderPane>
-   </children>
+    <children>
+        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getBuyersScene" ripplerFill="#60ad5e" styleClass="primary-button-1" text="Buyers">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <graphic>
+                                <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_MULTIPLE_OUTLINE" size="50" />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getComponentsScene" ripplerFill="BLACK" styleClass="primary-button-3" text="Components" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <graphic>
+                                <FontAwesomeIconView fill="WHITE" glyphName="PUZZLE_PIECE" size="50" />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getNewOrderScene" ripplerFill="#4b636e" styleClass="primary-button-2" text="New Order" GridPane.columnIndex="1">
+                            <graphic>
+                                <OctIconView fill="WHITE" glyphName="DIFF" size="50" />
+                            </graphic>
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" ripplerFill="BLACK" style="-fx-background-color: white;" styleClass="primary-button-1" text=" " GridPane.columnIndex="2">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="106.0" fitWidth="283.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/logo.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getReturnItemsScene" ripplerFill="#ae52d4" styleClass="primary-button-4" text="Return Items" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <graphic>
+                                <MaterialDesignIconView fill="WHITE" glyphName="KEYBOARD_RETURN" size="50" />
+                            </graphic>
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getLotNumbersScene" ripplerFill="#ae52d4" styleClass="primary-button-4" text="Lot Numbers" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                            <graphic>
+                                <MaterialDesignIconView fill="WHITE" glyphName="BARCODE_SCAN" size="50" />
+                            </graphic>
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getShipItemsScene" ripplerFill="#4b636e" styleClass="primary-button-2" text="Ship Items" GridPane.columnIndex="3">
+                            <graphic>
+                                <MaterialDesignIconView fill="WHITE" glyphName="TRUCK_DELIVERY" size="50" />
+                            </graphic>
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getVendorsScene" ripplerFill="#60ad5e" styleClass="primary-button-1" text="Vendors" GridPane.columnIndex="4">
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                            <graphic>
+                                <MaterialDesignIconView fill="WHITE" glyphName="STORE" size="50" />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getProductsScene" ripplerFill="BLACK" styleClass="primary-button-3" text="Products" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                            <graphic>
+                                <MaterialDesignIconView fill="WHITE" glyphName="DROPBOX" size="50" />
+                            </graphic>
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton contentDisplay="TOP" maxHeight="Infinity" maxWidth="Infinity" onAction="#getSearchScene" ripplerFill="#60ad5e" styleClass="primary-button-1" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <graphic>
+                                <OctIconView fill="WHITE" glyphName="EYE" size="50" />
+                            </graphic>
+                            <font>
+                                <Font size="30.0" />
+                            </font>
+                        </JFXButton>
+                    </children>
+                </GridPane>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>

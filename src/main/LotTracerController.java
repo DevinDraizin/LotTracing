@@ -16,50 +16,53 @@ public class LotTracerController implements ControlledScreen
         myController = screenPage;
     }
 
+    @Override
+    public void update(){}
+
 
     public void getNewOrderScene()
     {
-        myController.setScreen(main.screen2ID);
+        myController.setScreen(Main.screen2ID);
     }
 
     public void getShipItemsScene()
     {
-        myController.setScreen(main.screen3ID);
+        myController.setScreen(Main.screen3ID);
     }
 
     public void getReturnItemsScene()
     {
-        myController.setScreen(main.screen4ID);
+        myController.setScreen(Main.screen4ID);
     }
 
     public void getSearchScene()
     {
-        myController.setScreen(main.screen5ID);
+        myController.setScreen(Main.screen5ID);
     }
 
     public void getBuyersScene()
     {
-        myController.setScreen(main.screen6ID);
+        myController.setScreen(Main.screen6ID);
     }
 
     public void getVendorsScene()
     {
-        myController.setScreen(main.screen7ID);
+        myController.setScreen(Main.screen7ID);
     }
 
     public void getComponentsScene()
     {
-        myController.setScreen(main.screen8ID);
+        myController.setScreen(Main.screen8ID);
     }
 
     public void getProductsScene()
     {
-        myController.setScreen(main.screen9ID);
+        myController.setScreen(Main.screen9ID);
     }
 
     public void getLotNumbersScene()
     {
-        myController.setScreen(main.screen10ID);
+        myController.setScreen(Main.screen10ID);
     }
 
 

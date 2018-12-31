@@ -24,7 +24,7 @@ import java.sql.SQLException;
 
 */
 
-public class main extends Application
+public class Main extends Application
 {
 
     //ID and File names corresponding to all fxml screens
@@ -71,19 +71,19 @@ public class main extends Application
 
         //Load all screens into the screen controller
         ScreensController mainContainer = new ScreensController();
-        mainContainer.loadScreen(main.screen1ID, main.screen1File);
-        mainContainer.loadScreen(main.screen2ID, main.screen2File);
-        mainContainer.loadScreen(main.screen3ID, main.screen3File);
-        mainContainer.loadScreen(main.screen4ID, main.screen4File);
-        mainContainer.loadScreen(main.screen5ID, main.screen5File);
-        mainContainer.loadScreen(main.screen6ID, main.screen6File);
-        mainContainer.loadScreen(main.screen7ID, main.screen7File);
-        mainContainer.loadScreen(main.screen8ID, main.screen8File);
-        mainContainer.loadScreen(main.screen9ID, main.screen9File);
-        mainContainer.loadScreen(main.screen10ID, main.screen10File);
-        mainContainer.loadScreen(main.screen11ID, main.screen11File);
+        mainContainer.loadScreen(Main.screen1ID, Main.screen1File);
+        mainContainer.loadScreen(Main.screen2ID, Main.screen2File);
+        mainContainer.loadScreen(Main.screen3ID, Main.screen3File);
+        mainContainer.loadScreen(Main.screen4ID, Main.screen4File);
+        mainContainer.loadScreen(Main.screen5ID, Main.screen5File);
+        mainContainer.loadScreen(Main.screen6ID, Main.screen6File);
+        mainContainer.loadScreen(Main.screen7ID, Main.screen7File);
+        mainContainer.loadScreen(Main.screen8ID, Main.screen8File);
+        mainContainer.loadScreen(Main.screen9ID, Main.screen9File);
+        mainContainer.loadScreen(Main.screen10ID, Main.screen10File);
+        mainContainer.loadScreen(Main.screen11ID, Main.screen11File);
 
-        mainContainer.setScreen(main.screen1ID);
+        mainContainer.setScreen(Main.screen1ID);
 
         Scene scene = new Scene(mainContainer);
         primaryStage.getIcons().add(new Image("images/headsUpIcon.png"));
