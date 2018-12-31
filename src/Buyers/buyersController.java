@@ -8,7 +8,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
-import main.main;
+import main.Main;
 import screensframework.ControlledScreen;
 import screensframework.ScreensController;
 
@@ -37,6 +37,11 @@ public class buyersController implements ControlledScreen
     public void setScreenParent(ScreensController screenPage)
     {
         myController = screenPage;
+    }
+
+    @Override
+    public void update() {
+
     }
 
 
@@ -98,6 +103,6 @@ public class buyersController implements ControlledScreen
 
     public void goBack()
     {
-        myController.setScreen(main.screen1ID);
+        myController.setScreen(Main.screen1ID);
     }
 }

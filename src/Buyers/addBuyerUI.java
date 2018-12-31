@@ -201,7 +201,7 @@ public class addBuyerUI
     }
 
 
-    //Creates the main UI as well as
+    //Creates the Main UI as well as
     //the event listeners
     public static void createUI(ObservableList<buyer> buyerList)
     {
