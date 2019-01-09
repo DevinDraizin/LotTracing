@@ -17,7 +17,7 @@ public class productBuilderDAO
     //objects.
     public static ObservableList<productCategory> getProductCategoryList()
     {
-        ObservableList<productCategory> productCategoryList =  FXCollections.observableArrayList();
+        ObservableList<productCategory> productCategoryList = FXCollections.observableArrayList();
 
         PreparedStatement stmt = null;
         ResultSet myRst = null;
@@ -104,15 +104,15 @@ public class productBuilderDAO
     }
 
     //This statement is responsible for initializing the 'dataNames' array with the names of all the columns in the respective table
-    //in the order they are already in.
-    public static void getCategoryDetails(ArrayList<String> dataNames, String table)
+    //except for the primary key.
+    public static void getCategoryDetailsPartial(ArrayList<String> dataNames, String table)
     {
         PreparedStatement stmt = null;
         ResultSet myRst = null;
 
         try
         {
-            String pstmt = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ?";
+            String pstmt = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ? AND COLUMN_KEY != 'PRI';";
 
             stmt = DBConnectionManager.con.prepareStatement(pstmt);
             stmt.setString(1,table);
@@ -123,7 +123,7 @@ public class productBuilderDAO
             //and move row by row down the table
             while(myRst.next())
             {
-                dataNames.add(myRst.getString(1).replace("_"," "));
+                dataNames.add(myRst.getString(1));
             }
 
         } catch (SQLException e)
@@ -137,6 +137,41 @@ public class productBuilderDAO
         }
 
     }
+
+    //This statement is responsible for initializing the 'dataNames' array with the names of all the columns in the respective table
+    public static void getCategoryDetails(ArrayList<String> dataNames, String table)
+    {
+        PreparedStatement stmt = null;
+        ResultSet myRst = null;
+
+        try
+        {
+            String pstmt = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ?;";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            stmt.setString(1,table);
+            myRst = stmt.executeQuery();
+
+            //Since this will always be a table with 1 column
+            //we can just hard code 1 into the column index
+            //and move row by row down the table
+            while(myRst.next())
+            {
+                dataNames.add(myRst.getString(1));
+            }
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try { if (myRst != null) myRst.close(); } catch (Exception ignored) {}
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+    }
+
 
     //This statement will initialize the 'data' array with the entry corresponding to the specific
     //part number contained in the specified product category table
@@ -191,6 +226,16 @@ public class productBuilderDAO
         StringBuilder val = new StringBuilder(" (");
 
         /* STMT: INSERT INTO *Category* ( */
+
+        val.append(product.categoryName.getValue());
+        if(attributes.size() > 0)
+        {
+            val.append("_Part_Number,");
+        }
+        else
+        {
+            val.append("_Part_Number");
+        }
 
         //the attributes array holds the names of
         //each column in the specified category table
@@ -275,8 +320,11 @@ public class productBuilderDAO
         try
         {
             String pstmt = "INSERT INTO " + product.categoryName.getValue() + constructValues(product,attributes,partNumber);
+            System.out.println(pstmt);
 
             stmt = DBConnectionManager.con.prepareStatement(pstmt);
+
+            System.out.println(stmt.toString());
 
             stmt.executeUpdate();
 

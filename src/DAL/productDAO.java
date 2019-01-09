@@ -17,9 +17,10 @@ public class productDAO
     //Here we pull all buyer data from the table and
     //convert them into an observable list of buyer
     //objects.
-    public static ObservableList<product> getProductList()
+    public static void getProductList(ObservableList<product> productList)
     {
-        ObservableList<product> productList = FXCollections.observableArrayList();
+
+        productList.clear();
 
         PreparedStatement stmt = null;
         ResultSet myRst = null;
@@ -36,8 +37,6 @@ public class productDAO
                 productList.add(extractProductFromResultSet(myRst));
             }
 
-            return productList;
-
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -48,7 +47,6 @@ public class productDAO
             try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
         }
 
-        return null;
     }
 
     //Auxiliary method to getProductList()
