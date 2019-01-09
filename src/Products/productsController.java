@@ -6,10 +6,11 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import main.main;
+import main.Main;
 import screensframework.ControlledScreen;
 import screensframework.ScreensController;
 
@@ -24,7 +25,7 @@ public class productsController implements ControlledScreen
     @FXML
     JFXTextField searchField;
 
-    private static ObservableList<product> productList;
+    private static ObservableList<product> productList = FXCollections.observableArrayList();
 
     //Change this string to override what the table
     //will display a null value as
@@ -34,6 +35,11 @@ public class productsController implements ControlledScreen
     public void setScreenParent(ScreensController screenPage)
     {
         myController = screenPage;
+    }
+
+    @Override
+    public void update() {
+
     }
 
     public void initialize()
@@ -78,7 +84,7 @@ public class productsController implements ControlledScreen
 
         //This is the list that the table will pull all of its data from
         //here we pull data from the database to initialize the table
-        productList = DAL.productDAO.getProductList();
+        DAL.productDAO.getProductList(productList);
 
 
         //By default null values are displayed as empty strings so lets overwrite that to display the 'nullCharacter' string instead
@@ -216,12 +222,12 @@ public class productsController implements ControlledScreen
 
     public void buildProduct()
     {
-        myController.setScreen(main.screen11ID);
+        myController.setScreen(Main.screen11ID);
     }
 
 
     public void goBack()
     {
-        myController.setScreen(main.screen1ID);
+        myController.setScreen(Main.screen1ID);
     }
 }

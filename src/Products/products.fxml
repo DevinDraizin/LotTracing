@@ -15,13 +15,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../CSS/buyers.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Products.productsController">
+<AnchorPane stylesheets="@../CSS/buyers.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Products.productsController">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <VBox BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER">
+                  <HBox alignment="CENTER" fillHeight="false" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white; -fx-background-color: linear-gradient(to bottom right, #73C9CB, #747ee1);">
                      <children>
                         <JFXButton graphicTextGap="12.0" onAction="#goBack" styleClass="primary-button-1" text="Go Back">
                            <font>
@@ -32,17 +32,20 @@
                            </graphic>
                         </JFXButton>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label alignment="CENTER" style="-fx-font-size: 42;" text="Products" />
+                        <Label style="-fx-font-size: 42;" text="Products" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <JFXTextField fx:id="searchField" focusColor="#4052af" labelFloat="true" promptText="Search Products">
+                        <JFXTextField fx:id="searchField" focusColor="#4052af" labelFloat="true" promptText="Search Products" styleClass="header-text-field">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </JFXTextField>
                      </children>
                      <padding>
-                        <Insets bottom="28.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" fillHeight="false">
                      <children>

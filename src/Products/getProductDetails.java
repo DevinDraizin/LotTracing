@@ -1,6 +1,7 @@
 package Products;
 
 
+import Commons.utilities;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -52,7 +53,7 @@ public class getProductDetails
 
 
         //Now that everything is initialized we can
-        //create the main UI
+        //create the Main UI
         createUI();
     }
 
@@ -67,7 +68,7 @@ public class getProductDetails
         menu.getItems().addAll(copyItem,closeWindow);
         source.setContextMenu(menu);
 
-        copyItem.setOnAction(e -> Commons.utils.copyToClip(source.getText()));
+        copyItem.setOnAction(e -> utilities.copyToClip(source.getText()));
         closeWindow.setOnAction(e -> window.close());
     }
 

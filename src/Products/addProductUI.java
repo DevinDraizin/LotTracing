@@ -116,6 +116,8 @@ public class addProductUI
 
             productList.add(newProduct);
 
+            attributes.attributes.clear();
+
             window.close();
 
             err.setAlertType(Alert.AlertType.CONFIRMATION);

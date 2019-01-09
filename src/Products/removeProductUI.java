@@ -13,7 +13,7 @@ public class removeProductUI
 
     //We are guaranteed that product will not be null so we can go strait to removing it
     //To do this we need to remove the product from the product table, it's category table,
-    //and from the productList on the main UI.
+    //and from the productList on the Main UI.
     private static void removeProduct(product product,ObservableList<product> productList)
     {
         //extract product category and partNumber

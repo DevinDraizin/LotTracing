@@ -27,16 +27,20 @@ import java.util.ArrayList;
 public class addProductAttributesUI
 {
 
-    //This will get the names of the columns from the specified
-    //category table in the database and store them in an ArrayList
+    //This method is will retrieve all the names of columns from the
+    //specified category table in the database except the primary key
+    //This will be used inside the initList method since we never want
+    //to overwrite the primary key (Part Number)
     static ArrayList<String> getAttributeNames(String category)
     {
         ArrayList<String> attributes = new ArrayList<>();
 
-        DAL.productBuilderDAO.getCategoryDetails(attributes, category);
+        DAL.productBuilderDAO.getCategoryDetailsPartial(attributes, category);
 
         return attributes;
     }
+
+
 
 
     //Since the UI has to be dynamic according to the selected category
@@ -63,8 +67,9 @@ public class addProductAttributesUI
         primary.getChildren().add(container);
 
 
-        for(int i=1; i<attributes.size(); i++)
+        for(int i=0; i<attributes.size(); i++)
         {
+
             //We need to initialize all of the
             //combo boxes with the attributes
             //specified in the passed in product.
@@ -84,7 +89,7 @@ public class addProductAttributesUI
             combo.setMaxWidth(300);
             combo.setPrefWidth(300);
             combo.setPromptText(attributes.get(i));
-            DAL.productBuilderDAO.getComboData(combo.getItems(),category,attributes.get(i).replace(" ","_"));
+            DAL.productBuilderDAO.getComboData(combo.getItems(),category,attributes.get(i));
 
             //if product is not null then this method has been
             //called from the edit product UI, not the add product.
@@ -127,7 +132,7 @@ public class addProductAttributesUI
     {
         Alert err = new Alert(Alert.AlertType.ERROR);
 
-        for(int i=0; i<size-1; i++)
+        for(int i=0; i<=size-1; i++)
         {
             VBox box = (VBox)primary.getChildren().get(0);
             JFXComboBox curr = (JFXComboBox)box.getChildren().get(i);
@@ -147,7 +152,7 @@ public class addProductAttributesUI
             if(curr.getPromptText().toUpperCase().compareTo("DESCRIPTION") == 0 && content.length() > 255)
             {
                 err.setTitle("Invalid Input");
-                err.setHeaderText("Description must be at most 255 characters long");
+                err.setHeaderText("Description can be at most 255 characters long");
                 err.show();
 
                 addProductUI.attributes.attributes.clear();
