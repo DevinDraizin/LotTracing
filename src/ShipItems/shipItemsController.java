@@ -11,4 +11,9 @@ public class shipItemsController implements ControlledScreen
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
+
+    @Override
+    public void update() {
+
+    }
 }
