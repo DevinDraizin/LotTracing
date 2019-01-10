@@ -1,15 +1,10 @@
 package Components;
 
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TreeItem;
 import main.Main;
 import screensframework.ControlledScreen;
 import screensframework.ScreensController;
@@ -24,7 +19,6 @@ public class componentsController implements ControlledScreen
     JFXTextField searchField;
 
     private static ObservableList<component> componentList = FXCollections.observableArrayList();
-    private static String nullCharacter = "--";
 
     ScreensController myController;
 
@@ -40,42 +34,19 @@ public class componentsController implements ControlledScreen
 
     public void initialize()
     {
-        initTable();
+        initComponentTable();
         initSearchField();
     }
 
-    private void initTable()
+    private void initComponentTable()
     {
-        JFXTreeTableColumn<component,String> partNumberCol = new JFXTreeTableColumn<>("Part Number");
-        partNumberCol.setCellValueFactory(param -> param.getValue().getValue().partNumber);
-
-        JFXTreeTableColumn<component,String> descriptionCol = new JFXTreeTableColumn<>("Description");
-        descriptionCol.setCellValueFactory(param -> param.getValue().getValue().description);
-
-        JFXTreeTableColumn<component,String> sectionCol = new JFXTreeTableColumn<>("Section");
-        sectionCol.setCellValueFactory(param -> param.getValue().getValue().description);
-
-
-        DAL.componentDAO.getComponentsList(componentList);
-
-        sectionCol.setCellValueFactory(param -> (param.getValue().getValue().section.getValue() == null) ? new SimpleStringProperty(nullCharacter) : param.getValue().getValue().section);
-
-
-
-        final TreeItem<component> root = new RecursiveTreeItem<>(componentList, RecursiveTreeObject::getChildren);
-
-        table.getColumns().addAll(partNumberCol,descriptionCol,sectionCol);
-        table.setRoot(root);
-        table.setShowRoot(false);
+        String nullCharacter = "--";
+        Commons.UIComponents.initComponentTable(table,componentList, nullCharacter);
     }
 
     private void initSearchField()
     {
-
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> table.setPredicate(buyerTreeItem ->
-                buyerTreeItem.getValue().partNumber.getValue().toUpperCase().contains(newValue.toUpperCase()) ||
-                        Commons.staticLookupCommons.checkNull(buyerTreeItem.getValue().section.getValue()).toUpperCase().contains(newValue.toUpperCase()) ||
-                        Commons.staticLookupCommons.checkNull(buyerTreeItem.getValue().description.getValue()).toUpperCase().contains(newValue.toUpperCase())));
+        Commons.UIComponents.initComponentSearchField(searchField,table);
     }
 
     public void goBack()
