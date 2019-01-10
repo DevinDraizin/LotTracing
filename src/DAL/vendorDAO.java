@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 public class vendorDAO
 {
@@ -78,25 +79,30 @@ public class vendorDAO
         return null;
     }
 
-    //Initializes a combo box with all existing vendor names
-    public static boolean getVendorSelector(JFXComboBox<String> vendorSelector)
+    //Initializes a combo box with all existing vendor names and returns a hash map to associate
+    //the primary key (id) with each vendor name
+    public static HashMap<String,Integer> getVendorSelector(JFXComboBox<String> vendorSelector)
     {
         PreparedStatement stmt = null;
         ResultSet myRst = null;
 
+        HashMap<String,Integer> map = new HashMap<>();
+
         try
         {
-            String pstmt = "SELECT Vendor_Name FROM Vendors";
+            String pstmt = "SELECT * FROM Vendors";
 
             stmt = DBConnectionManager.con.prepareStatement(pstmt);
             myRst = stmt.executeQuery();
 
             while(myRst.next())
             {
-                vendorSelector.getItems().add(myRst.getString(1));
+                vendorSelector.getItems().add(myRst.getString(2));
+                map.put(myRst.getString(2),myRst.getInt(1));
+
             }
 
-            return true;
+            return map;
 
         } catch (SQLException e)
         {
@@ -108,7 +114,8 @@ public class vendorDAO
             try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
         }
 
-        return false;
+        //If we return null than the SELECT query failed
+        return null;
     }
 
     private static vendor extractVendorFromResultSet(ResultSet myRs) throws SQLException
@@ -155,7 +162,7 @@ public class vendorDAO
     //immediately after an insert statement
     //we can extract the auto-increment value
     //generated
-    public static int getLastID()
+    static int getLastID()
     {
         PreparedStatement stmt = null;
         ResultSet myRst = null;
