@@ -3,18 +3,12 @@ package Vendors;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
-import main.main;
+import main.Main;
 import screensframework.ControlledScreen;
 import screensframework.ScreensController;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 
 public class vendorsController implements ControlledScreen {
@@ -106,7 +100,7 @@ public class vendorsController implements ControlledScreen {
 
     public void goBack()
     {
-        myController.setScreen(main.screen1ID);
+        myController.setScreen(Main.screen1ID);
     }
 
     public void addVendor()
@@ -127,5 +121,10 @@ public class vendorsController implements ControlledScreen {
     @Override
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
+    }
+
+    @Override
+    public void update() {
+
     }
 }

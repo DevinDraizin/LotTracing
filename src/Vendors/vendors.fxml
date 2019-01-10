@@ -15,35 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../CSS/buyers.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vendors.vendorsController">
+<AnchorPane stylesheets="@../CSS/buyers.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vendors.vendorsController">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXButton graphicTextGap="12.0" onAction="#goBack" styleClass="primary-button-1" text="Go Back">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <graphic>
-                        <OctIconView fill="WHITE" glyphName="MAIL_REPLY" size="22" />
-                     </graphic>
-                  </JFXButton>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Label alignment="CENTER" style="-fx-font-size: 42;" text="Vendors" />
-                  <JFXSlider fx:id="slider" blockIncrement="1.0" indicatorPosition="RIGHT" max="40.0" min="8.0" minorTickCount="1" onDragDetected="#setFont" onKeyPressed="#setFont" onMouseDragged="#setFont" />
-                  <Region HBox.hgrow="ALWAYS" />
-                  <JFXTextField fx:id="searchField" focusColor="#4052af" labelFloat="true" promptText="Search Vendors">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-               <padding>
-                  <Insets bottom="28.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </HBox>
-         </top>
          <left>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
@@ -110,6 +84,35 @@
                </opaqueInsets>
             </AnchorPane>
          </center>
+         <top>
+            <HBox alignment="CENTER" fillHeight="false" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white; -fx-background-color: linear-gradient(to bottom right, #73C9CB, #747ee1);" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton graphicTextGap="12.0" onAction="#goBack" styleClass="primary-button-1" text="Go Back">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="MAIL_REPLY" size="22" />
+                     </graphic>
+                  </JFXButton>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label style="-fx-font-size: 42;" text="Vendors" />
+                  <JFXSlider fx:id="slider" blockIncrement="1.0" indicatorPosition="RIGHT" max="40.0" min="8.0" minorTickCount="1" onDragDetected="#setFont" onKeyPressed="#setFont" onMouseDragged="#setFont" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <JFXTextField fx:id="searchField" focusColor="#4052af" labelFloat="true" promptText="Search Vendors" styleClass="header-text-field">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets bottom="40.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>
