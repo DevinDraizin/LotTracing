@@ -1,6 +1,7 @@
 package DAL;
 
 import Vendors.vendor;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -75,6 +76,39 @@ public class vendorDAO
         }
 
         return null;
+    }
+
+    //Initializes a combo box with all existing vendor names
+    public static boolean getVendorSelector(JFXComboBox<String> vendorSelector)
+    {
+        PreparedStatement stmt = null;
+        ResultSet myRst = null;
+
+        try
+        {
+            String pstmt = "SELECT Vendor_Name FROM Vendors";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            myRst = stmt.executeQuery();
+
+            while(myRst.next())
+            {
+                vendorSelector.getItems().add(myRst.getString(1));
+            }
+
+            return true;
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try { if (myRst != null) myRst.close(); } catch (Exception ignored) {}
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+        return false;
     }
 
     private static vendor extractVendorFromResultSet(ResultSet myRs) throws SQLException
