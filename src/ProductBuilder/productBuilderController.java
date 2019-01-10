@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import main.main;
+import main.Main;
 import screensframework.ControlledScreen;
 import screensframework.ScreensController;
 
@@ -33,6 +33,11 @@ public class productBuilderController implements ControlledScreen
     public void setScreenParent(ScreensController screenPage)
     {
         myController = screenPage;
+    }
+
+    @Override
+    public void update() {
+
     }
 
     public void initialize()
@@ -131,7 +136,7 @@ public class productBuilderController implements ControlledScreen
 
     public void goBack()
     {
-        myController.setScreen(main.screen9ID);
+        myController.setScreen(Main.screen9ID);
     }
 }
 
