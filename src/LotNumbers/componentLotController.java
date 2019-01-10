@@ -18,6 +18,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.HashMap;
+
 
 public class componentLotController
 {
@@ -37,6 +39,8 @@ public class componentLotController
     JFXComboBox<String> vendorDrop;
 
     private static ObservableList<component> componentList = FXCollections.observableArrayList();
+
+    private static HashMap<String,Integer> vendorMap;
 
 
     public void initialize()
@@ -64,7 +68,16 @@ public class componentLotController
     private void initVendorDrop()
     {
         vendorDrop.getItems().clear();
-        DAL.vendorDAO.getVendorSelector(vendorDrop);
+        vendorMap = DAL.vendorDAO.getVendorSelector(vendorDrop);
+
+        if(vendorMap == null)
+        {
+            Alert err = new Alert(Alert.AlertType.ERROR);
+            err.setTitle("Database Error");
+            err.setHeaderText("Failed to load vendor information");
+            err.setContentText("");
+            err.show();
+        }
     }
 
     private void initComponentTable()
@@ -97,13 +110,29 @@ public class componentLotController
         parentController.headerLabel.setText("Lot Numbers");
     }
 
-    private componentLot assembleComponentLot()
+    //Clears all information from the UI form
+    //DO NOT CALL DIRECTLY
+    //If this is called after validateLot() then
+    //createLot() will fail miserably
+    private void clearFields()
     {
-        componentLot lot = new componentLot();
+        lotNumberTextField.clear();
 
+        vendorPOField.clear();
 
-        return lot;
+        vendorDrop.getSelectionModel().clearSelection();
+
+        componentTable.getSelectionModel().clearSelection();
+
+        receiveDatePicker.getEditor().clear();
+
+        if(receiveDatePicker.getValue() != null)
+        {
+            receiveDatePicker.setValue(null);
+        }
+
     }
+
 
     private void createLot(JFXTextField input, Stage window)
     {
@@ -122,6 +151,7 @@ public class componentLotController
         if(in.isEmpty())
         {
             conf.showAndWait();
+            return;
         }
         else
         {
@@ -143,10 +173,43 @@ public class componentLotController
         }
 
         //If we reach here qty is now valid so we can extract the componentLot info
-        componentLot lot = assembleComponentLot();
 
+        //Assemble the new valid lot into a componentLot object
+        componentLot lot = new componentLot(lotNumberTextField.getText(),receiveDatePicker.getValue(),
+                qty,vendorPOField.getText(),vendorMap.get(vendorDrop.getValue()),
+                componentTable.getSelectionModel().getSelectedItem().getValue().partNumber.getValue());
 
+        //Now we can insert the new component lot into the database and then clear all fields for cleanup
+
+        boolean outcome = DAL.lotNumbersDAO.insertComponentLot(lot);
+
+        Alert success = new Alert(Alert.AlertType.CONFIRMATION);
+
+        if(outcome)
+        {
+            success.setTitle("Success");
+            success.setHeaderText("Successfully created component lot");
+            success.setContentText("");
+            success.showAndWait();
+        }
+        else
+        {
+            success.setAlertType(Alert.AlertType.ERROR);
+            success.setTitle("Error");
+            success.setHeaderText("Failed to create component lot");
+            success.setContentText("");
+            success.showAndWait();
+        }
+
+        //Close Qty window
         window.close();
+
+        //Clear UI fields
+        clearFields();
+
+        //Go back to main lot number page
+        goBack();
+
     }
 
 
