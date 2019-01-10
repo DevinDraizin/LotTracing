@@ -206,7 +206,14 @@ public class newOrderController implements ControlledScreen
                 return;
             }
 
+            if(qty < 1)
+            {
+                conf.showAndWait();
+                return;
+            }
+
         }
+
 
 
 
@@ -491,10 +498,12 @@ public class newOrderController implements ControlledScreen
         newOrder.PODate = orderDatePicker.getValue();
         newOrder.dueDate = dueDatePicker.getValue();
         newOrder.buyerID = (DAL.buyerDAO.findBuyer(buyerName.getSelectionModel().getSelectedItem()));
+        newOrder.memos = new SimpleStringProperty("");
         if(!memoField.getText().isEmpty())
         {
-            newOrder.memos = new SimpleStringProperty(memoField.getText());
+            newOrder.memos.setValue(memoField.getText());
         }
+
 
 
         DAL.newOrderDAO.insertPurchaseOrder(newOrder);
