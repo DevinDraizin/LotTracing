@@ -2,7 +2,6 @@ package DAL;
 
 import Components.component;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.PreparedStatement;
@@ -14,9 +13,9 @@ public class componentDAO
     //Here we pull all buyer data from the table and
     //convert them into an observable list of buyer
     //objects.
-    public static ObservableList<component> getComponentsList()
+    public static void getComponentsList(ObservableList<component> componentList)
     {
-        ObservableList<component> buyerList =  FXCollections.observableArrayList();
+        componentList.clear();
 
         PreparedStatement stmt = null;
         ResultSet myRst = null;
@@ -30,10 +29,10 @@ public class componentDAO
 
             while(myRst.next())
             {
-                buyerList.add(extractComponentFromResultSet(myRst));
+                componentList.add(extractComponentFromResultSet(myRst));
             }
 
-            return buyerList;
+            return;
 
         } catch (SQLException e)
         {
@@ -45,13 +44,48 @@ public class componentDAO
             try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
         }
 
-        return null;
     }
 
+    //Returns true if num is unique and false if it is found
+    //in the component_lots table
+    public static boolean checkComponentLotNum(String num)
+    {
+        PreparedStatement stmt = null;
+        ResultSet myRst = null;
+
+        try
+        {
+            String pstmt = " SELECT COUNT(*) FROM Component_Lots WHERE Component_Lot_Number = ?;";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            stmt.setString(1,num);
+            myRst = stmt.executeQuery();
+
+            myRst.next();
+
+            return myRst.getInt(1) == 0;
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try { if (myRst != null) myRst.close(); } catch (Exception ignored) {}
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+        //we should never get here unless the database fails in which case
+        //we default to not allowing creation of new component lot numbers to
+        //preserve data integrity
+        return false;
+    }
+
+
     //Auxiliary method to getComponentList()
-    //this method will take a specific row from the buyer
-    //table and convert the data into a buyer object.
-    //once converted, we return a buyer object
+    //this method will take a specific row from the component
+    //table and convert the data into a component object.
+    //once converted, we return that component object
     private static component extractComponentFromResultSet(ResultSet myRs) throws SQLException
     {
         component component = new component();
