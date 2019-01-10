@@ -11,4 +11,9 @@ public class searchItemsController implements ControlledScreen
     public void setScreenParent(ScreensController screenPage) {
         myController = screenPage;
     }
+
+    @Override
+    public void update() {
+
+    }
 }
