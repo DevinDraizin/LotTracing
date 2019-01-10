@@ -77,6 +77,16 @@
     /*-fx-prompt-text-fill: white;*/
 }
 
+.header-text-field
+{
+    -fx-text-fill: black;
+
+    -jfx-focus-color: #052b7e;
+    -jfx-unfocus-color: black;
+    -fx-font-size: 18px;
+    -fx-prompt-text-fill: black;
+}
+
 .jfx-toggle-button
 {
     /*-fx-text-fill: black;*/
