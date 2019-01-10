@@ -4,13 +4,17 @@ Global Notes:
 - Create Global settings menu
     * Create global font size slider
 
-- Change all DB queries to use parameterized statements
+- Make sure that the controller update methods maintain
+- real time data throughout the UI.
+
 
 *****************************************************************************************************************************************
+Bugs:
+
+
 
 Products:
 
-- Lets see how the card look for the add/edit/remove product UI looks
 
 - WHEN WE ADD A NEW PRODUCT CATEGORY WE HAVE TO GENERATE
   PRIMARY KEY NAME IN FOLLOWING FORMAT: '3 letter name'_Part_Number
@@ -36,25 +40,3 @@ Products:
     - View existing categories in table
 
 
-
-    UI Design
-
-    Concepts:
-
-        - Maybe context menus on table to quickly remove/add/edit
-
-        - Tree Table View to display root nodes as product category
-          and the associated attributes as children nodes
-
-        - In addition to context menus we can have edit/remove by selecting
-          tree item and then clicking add or remove button
-
-        - Maybe make editing available directly on table view instead
-          of making separate popup
-
-        - List view in order to create "cards" for attributes
-
-
-    Must Have:
-
-        - Tree table view for displaying existing categories
