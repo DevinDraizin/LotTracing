@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="LotNumbers.lotNumbersController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="864.0" prefWidth="1122.0" stylesheets="@../CSS/buyers.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LotNumbers.lotNumbersController">
+   <children>
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <JFXTabPane fx:id="tabLayout" style="-fx-background-color: #F5F5F5;" BorderPane.alignment="CENTER">
+               <tabs>
+                  <Tab text="component">
+                      <fx:include fx:id="componentSource" source="componentLotNumbers.fxml"/>
+                  </Tab>
+                  <Tab text="main">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="CENTER" fillHeight="false" maxHeight="300.0" maxWidth="300.0" prefHeight="300.0" prefWidth="300.0" spacing="220.0" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane style="-fx-background-color: white; -fx-border-color: #F5F5F5;">
+                                       <children>
+                                          <JFXButton alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" onAction="#goToComponent" prefHeight="300.0" prefWidth="300.0" styleClass="primary-button-3" text="Create Component Lot" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="CUBES" size="25" />
+                                             </graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane style="-fx-background-color: white; -fx-border-color: #F5F5F5;">
+                                       <children>
+                                          <JFXButton alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="12.0" onAction="#goToAssembly" prefHeight="300.0" prefWidth="300.0" styleClass="primary-button-3" text="Create Assembly Lot" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="CUBE" size="25" />
+                                             </graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </HBox>
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="assembly">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </center>
+         <top>
+            <HBox alignment="CENTER" fillHeight="false" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white; -fx-background-color: linear-gradient(to bottom right, #73C9CB, #747ee1);" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton graphicTextGap="12.0" onAction="#goBack" styleClass="primary-button-1" text="Go Back">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="MAIL_REPLY" size="22" />
+                     </graphic>
+                  </JFXButton>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="headerLabel" style="-fx-font-size: 42;" text="Lot Numbers" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <JFXTextField fx:id="searchField" alignment="CENTER" labelFloat="true" promptText="Search Components" styleClass="header-text-field" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </AnchorPane>
