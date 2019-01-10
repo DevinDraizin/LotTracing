@@ -320,11 +320,9 @@ public class productBuilderDAO
         try
         {
             String pstmt = "INSERT INTO " + product.categoryName.getValue() + constructValues(product,attributes,partNumber);
-            System.out.println(pstmt);
 
             stmt = DBConnectionManager.con.prepareStatement(pstmt);
 
-            System.out.println(stmt.toString());
 
             stmt.executeUpdate();
 
