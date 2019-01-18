@@ -2,6 +2,7 @@ package Commons;
 
 
 import Components.component;
+import Products.product;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -49,5 +50,89 @@ public class UIComponents
                 buyerTreeItem.getValue().partNumber.getValue().toUpperCase().contains(newValue.toUpperCase()) ||
                         Commons.staticLookupCommons.checkNull(buyerTreeItem.getValue().section.getValue()).toUpperCase().contains(newValue.toUpperCase()) ||
                         Commons.staticLookupCommons.checkNull(buyerTreeItem.getValue().description.getValue()).toUpperCase().contains(newValue.toUpperCase())));
+    }
+
+    public static void initProductTable(JFXTreeTableView<product> table, ObservableList<product> productList, String nullCharacter)
+    {
+        //Create and populate table
+        JFXTreeTableColumn<product,String> partNumberCol = new JFXTreeTableColumn<>("Part Number");
+        partNumberCol.setCellValueFactory(param -> param.getValue().getValue().partNumber);
+
+        JFXTreeTableColumn<product,String> productNameCol = new JFXTreeTableColumn<>("Product Name");
+        productNameCol.setCellValueFactory(param -> param.getValue().getValue().productName);
+
+        JFXTreeTableColumn<product,String> activeStatusCol = new JFXTreeTableColumn<>("Active Status");
+        activeStatusCol.setCellValueFactory(param -> param.getValue().getValue().activeStatus);
+
+        JFXTreeTableColumn<product,String> UOMCol = new JFXTreeTableColumn<>("UOM");
+        UOMCol.setCellValueFactory(param -> param.getValue().getValue().UOM);
+
+        JFXTreeTableColumn<product,Double> costCol = new JFXTreeTableColumn<>("Cost ($)");
+        costCol.setCellValueFactory(param -> param.getValue().getValue().cost);
+
+        JFXTreeTableColumn<product,Double> priceCol = new JFXTreeTableColumn<>("Price ($)");
+        priceCol.setCellValueFactory(param -> param.getValue().getValue().price);
+
+        JFXTreeTableColumn<product,String> UPCCol = new JFXTreeTableColumn<>("UPC");
+        UPCCol.setCellValueFactory(param -> param.getValue().getValue().UPC);
+
+        JFXTreeTableColumn<product,String> productCategoryCol = new JFXTreeTableColumn<>("Product Category");
+        productCategoryCol.setCellValueFactory(param -> param.getValue().getValue().productCategory);
+
+        //This is the list that the table will pull all of its data from
+        //here we pull data from the database to initialize the table
+        DAL.productDAO.getProductList(productList);
+
+
+        //By default null values are displayed as empty strings so lets overwrite that to display the 'nullCharacter' string instead
+        //Since UPCs are the only fields that are allowed to be null we only need to set the cellValueFactory for that column
+        UPCCol.setCellValueFactory(param -> (param.getValue().getValue().UPC.getValue() == null) ? new SimpleStringProperty(nullCharacter) : param.getValue().getValue().UPC);
+
+
+        final TreeItem<product> root = new RecursiveTreeItem<>(productList, RecursiveTreeObject::getChildren);
+
+        table.getColumns().addAll(partNumberCol,productNameCol,activeStatusCol,UOMCol,costCol,priceCol,UPCCol,productCategoryCol);
+        table.setRoot(root);
+        table.setShowRoot(false);
+
+
+    }
+
+    public static void initAssemblyProductTable(JFXTreeTableView<product> table, ObservableList<product> productList, String nullCharacter)
+    {
+        //Create and populate table
+        JFXTreeTableColumn<product,String> partNumberCol = new JFXTreeTableColumn<>("Part Number");
+        partNumberCol.setCellValueFactory(param -> param.getValue().getValue().partNumber);
+
+        JFXTreeTableColumn<product,String> productNameCol = new JFXTreeTableColumn<>("Product Name");
+        productNameCol.setCellValueFactory(param -> param.getValue().getValue().productName);
+
+        JFXTreeTableColumn<product,String> UOMCol = new JFXTreeTableColumn<>("UOM");
+        UOMCol.setCellValueFactory(param -> param.getValue().getValue().UOM);
+
+
+        JFXTreeTableColumn<product,String> UPCCol = new JFXTreeTableColumn<>("UPC");
+        UPCCol.setCellValueFactory(param -> param.getValue().getValue().UPC);
+
+        JFXTreeTableColumn<product,String> productCategoryCol = new JFXTreeTableColumn<>("Product Category");
+        productCategoryCol.setCellValueFactory(param -> param.getValue().getValue().productCategory);
+
+        //This is the list that the table will pull all of its data from
+        //here we pull data from the database to initialize the table
+        DAL.productDAO.getProductList(productList);
+
+
+        //By default null values are displayed as empty strings so lets overwrite that to display the 'nullCharacter' string instead
+        //Since UPCs are the only fields that are allowed to be null we only need to set the cellValueFactory for that column
+        UPCCol.setCellValueFactory(param -> (param.getValue().getValue().UPC.getValue() == null) ? new SimpleStringProperty(nullCharacter) : param.getValue().getValue().UPC);
+
+
+        final TreeItem<product> root = new RecursiveTreeItem<>(productList, RecursiveTreeObject::getChildren);
+
+        table.getColumns().addAll(partNumberCol,productNameCol,UOMCol,UPCCol,productCategoryCol);
+        table.setRoot(root);
+        table.setShowRoot(false);
+
+
     }
 }
