@@ -64,6 +64,7 @@ public class productDAO
         product.price = new SimpleDoubleProperty(myRs.getDouble(6)).asObject();
         product.UPC = new SimpleStringProperty(myRs.getString(7));
         product.productCategory = new SimpleStringProperty(myRs.getString(8));
+        product.lotSuffix = new SimpleStringProperty(myRs.getString(9));
 
         return product;
     }
@@ -140,7 +141,7 @@ public class productDAO
 
         try
         {
-            String pstmt = "INSERT INTO Products (Part_Number, Product_Name, Active_Status, UOM, Cost, Price, UPC, Product_Category) VALUES (?,?,?,?,?,?,?,?);";
+            String pstmt = "INSERT INTO Products (Part_Number, Product_Name, Active_Status, UOM, Cost, Price, UPC, Product_Category, Lot_Suffix) VALUES (?,?,?,?,?,?,?,?,?);";
 
             stmt = DBConnectionManager.con.prepareStatement(pstmt);
 
@@ -152,6 +153,7 @@ public class productDAO
             stmt.setDouble(6,product.price.getValue());
             stmt.setString(7,product.UPC == null ? null : product.UPC.getValue());
             stmt.setString(8,product.productCategory.getValue());
+            stmt.setString(9,product.lotSuffix == null ? null : product.lotSuffix.getValue());
 
             stmt.executeUpdate();
 
