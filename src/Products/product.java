@@ -16,6 +16,7 @@ public class product extends RecursiveTreeObject<product>
     public ObservableValue<Double> price;
     public StringProperty UPC;
     public StringProperty productCategory;
+    public StringProperty lotSuffix;
 
     public product()
     {
@@ -27,9 +28,10 @@ public class product extends RecursiveTreeObject<product>
         this.price = null;
         this.UPC = null;
         this.productCategory = null;
+        this.lotSuffix = null;
     }
 
-    product(String partNumber, String productName, String activeStatus, String UOM, Double cost, Double price, String UPC, String productCategory)
+    product(String partNumber, String productName, String activeStatus, String UOM, Double cost, Double price, String UPC, String productCategory, String lotSuffix)
     {
         this.partNumber = new SimpleStringProperty(partNumber);
         this.productName = new SimpleStringProperty(productName);
@@ -39,6 +41,7 @@ public class product extends RecursiveTreeObject<product>
         this.price = new SimpleDoubleProperty(price).asObject();
         this.UPC = new SimpleStringProperty(UPC);
         this.productCategory = new SimpleStringProperty(productCategory);
+        this.lotSuffix = new SimpleStringProperty(lotSuffix);
     }
 
 }

@@ -2,6 +2,7 @@ package Products;
 
 
 import Commons.utilities;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -34,7 +35,7 @@ public class getProductDetails
 
     //Here we query the database to match the part number with all of the attributes
     //by looking up the part number in its respective product category.
-    public static void getProperUI(String productCategory,String partNumber)
+    public static void getProperUI(product product, String productCategory,String partNumber)
     {
         //We have to clear the array every time the method is called so
         //the data does not show up multiple times on the UI
@@ -54,7 +55,7 @@ public class getProductDetails
 
         //Now that everything is initialized we can
         //create the Main UI
-        createUI();
+        createUI(product);
     }
 
 
@@ -74,7 +75,7 @@ public class getProductDetails
 
 
 
-    private static void createUI()
+    private static void createUI(product product)
     {
         Stage window = new Stage();
         window.setTitle("Product Details");
@@ -116,6 +117,17 @@ public class getProductDetails
             grid.add(names,0,i);
             grid.add(dataLabels,1,i);
         }
+
+        // Add a display for the lot suffix
+        Label suffixDesc = new Label("Lot Suffix:");
+        suffixDesc.getStyleClass().add("desc-labels");
+        grid.add(suffixDesc,0,data.size());
+
+        String suffix = (product.lotSuffix == null ||
+                product.lotSuffix.isEmpty().get()) ? "No Lot Suffix" : product.lotSuffix.getValue();
+        Label suffixLabel = new Label(suffix);
+        initLabel(suffixLabel,window);
+        grid.add(suffixLabel,1,data.size());
 
         mainLayout.setTop(headerBox);
         mainLayout.setCenter(grid);

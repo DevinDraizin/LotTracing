@@ -4,13 +4,18 @@ import ProductBuilder.productCategory;
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.octicons.OctIcon;
 import de.jensd.fx.glyphs.octicons.OctIconView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -27,6 +32,7 @@ public class addProductUI
     private static JFXTextField costField;
     private static JFXTextField priceField;
     private static JFXTextField UPCField;
+    private static JFXTextField lotSuffix;
 
     private static JFXComboBox<String> UOMFields;
 
@@ -38,6 +44,7 @@ public class addProductUI
     static productCategory attributes = new productCategory();
 
     private static int lastInsertedIndex = -1;
+    private static int lotSuffixMaxLength = 3;
 
 
     private static boolean validateDoubles()
@@ -108,14 +115,16 @@ public class addProductUI
             Double price = Double.valueOf(priceField.getText());
             String UPC = UPCField.getText().isEmpty() ? null : UPCField.getText();
             String productCategory = productCategoryDrop.getValue();
+            String suffix = lotSuffix.getText().isEmpty() ? null : lotSuffix.getText();
 
-            newProduct = new product(partNumber,productName,activeStatus,UOM,cost,price,UPC,productCategory);
+            newProduct = new product(partNumber,productName,activeStatus,UOM,cost,price,UPC,productCategory,suffix);
 
             DAL.productDAO.insertProduct(newProduct);
             DAL.productBuilderDAO.insertCategory(attributes,addProductAttributesUI.getAttributeNames(attributes.categoryName.getValue()),newProduct.partNumber.getValue());
 
             productList.add(newProduct);
 
+            //Worst naming convention in the whole program
             attributes.attributes.clear();
 
             window.close();
@@ -205,6 +214,17 @@ public class addProductUI
         window.close();
     }
 
+    private static void initLotSuffixField()
+    {
+        lotSuffix.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(lotSuffix.getText().length() > lotSuffixMaxLength)
+            {
+                String s = lotSuffix.getText().substring(0,lotSuffixMaxLength);
+                lotSuffix.setText(s);
+            }
+        });
+    }
+
 
 
     public static void createUI(ObservableList<product> productList)
@@ -213,8 +233,8 @@ public class addProductUI
         window.setTitle("Add Product");
         window.initModality(Modality.APPLICATION_MODAL);
         window.initStyle(StageStyle.UNDECORATED);
-        window.setHeight(650);
-        window.setWidth(750);
+        window.setHeight(750);
+        window.setWidth(850);
 
         BorderPane mainLayout = new BorderPane();
         mainLayout.setPadding(new Insets(20,20,20,20));
@@ -256,6 +276,10 @@ public class addProductUI
         costField = initTextField("Cost");
         priceField = initTextField("Price");
         UPCField = initTextField("UPC");
+        lotSuffix = initTextField("Lot Suffix");
+        lotSuffix.setTooltip(new Tooltip("3 digit description for lot numbers"));
+
+        initLotSuffixField();
 
         UOMFields = editProductUI.initUOM();
 
@@ -270,6 +294,7 @@ public class addProductUI
         getDetailsButton.getStyleClass().add("primary-button-1");
 
 
+
         HBox detailsBox = new HBox(16);
         detailsBox.setAlignment(Pos.CENTER);
         OctIconView icon = new OctIconView();
@@ -282,7 +307,7 @@ public class addProductUI
         switchBox.getChildren().addAll(productCatBox,activeToggle);
 
 
-        contentBox.getChildren().addAll(infoGrid,switchBox);
+        contentBox.getChildren().addAll(infoGrid,lotSuffix,switchBox);
         buttonBox.getChildren().addAll(addButton,closeButton);
 
         infoGrid.add(partNumberField,1,0);
@@ -293,6 +318,8 @@ public class addProductUI
 
         infoGrid.add(priceField,1,2);
         infoGrid.add(costField,0,2);
+
+
 
 
 

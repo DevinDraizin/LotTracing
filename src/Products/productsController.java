@@ -57,57 +57,17 @@ public class productsController implements ControlledScreen
     //we can create a popup with relevant data about the source
     private void initTable()
     {
-        //Create and populate table
-        JFXTreeTableColumn<product,String> partNumberCol = new JFXTreeTableColumn<>("Part Number");
-        partNumberCol.setCellValueFactory(param -> param.getValue().getValue().partNumber);
 
-        JFXTreeTableColumn<product,String> productNameCol = new JFXTreeTableColumn<>("Product Name");
-        productNameCol.setCellValueFactory(param -> param.getValue().getValue().productName);
-
-        JFXTreeTableColumn<product,String> activeStatusCol = new JFXTreeTableColumn<>("Active Status");
-        activeStatusCol.setCellValueFactory(param -> param.getValue().getValue().activeStatus);
-
-        JFXTreeTableColumn<product,String> UOMCol = new JFXTreeTableColumn<>("UOM");
-        UOMCol.setCellValueFactory(param -> param.getValue().getValue().UOM);
-
-        JFXTreeTableColumn<product,Double> costCol = new JFXTreeTableColumn<>("Cost ($)");
-        costCol.setCellValueFactory(param -> param.getValue().getValue().cost);
-
-        JFXTreeTableColumn<product,Double> priceCol = new JFXTreeTableColumn<>("Price ($)");
-        priceCol.setCellValueFactory(param -> param.getValue().getValue().price);
-
-        JFXTreeTableColumn<product,String> UPCCol = new JFXTreeTableColumn<>("UPC");
-        UPCCol.setCellValueFactory(param -> param.getValue().getValue().UPC);
-
-        JFXTreeTableColumn<product,String> productCategoryCol = new JFXTreeTableColumn<>("Product Category");
-        productCategoryCol.setCellValueFactory(param -> param.getValue().getValue().productCategory);
-
-        //This is the list that the table will pull all of its data from
-        //here we pull data from the database to initialize the table
-        DAL.productDAO.getProductList(productList);
-
-
-        //By default null values are displayed as empty strings so lets overwrite that to display the 'nullCharacter' string instead
-        //Since UPCs are the only fields that are allowed to be null we only need to set the cellValueFactory for that column
-        UPCCol.setCellValueFactory(param -> (param.getValue().getValue().UPC.getValue() == null) ? new SimpleStringProperty(nullCharacter) : param.getValue().getValue().UPC);
-
-
-        final TreeItem<product> root = new RecursiveTreeItem<>(productList, RecursiveTreeObject::getChildren);
-
-        table.getColumns().addAll(partNumberCol,productNameCol,activeStatusCol,UOMCol,costCol,priceCol,UPCCol,productCategoryCol);
-        table.setRoot(root);
-        table.setShowRoot(false);
+        Commons.UIComponents.initProductTable(table,productList,nullCharacter);
 
         //This is the action listener responsible for displaying
         //an attribute menu on double click
         table.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                ProductDetails(table.getSelectionModel().getSelectedItem().getValue().productCategory.getValue(),
+                ProductDetails(getSelectedProduct(),table.getSelectionModel().getSelectedItem().getValue().productCategory.getValue(),
                         table.getSelectionModel().getSelectedItem().getValue().partNumber.getValue());
             }
         });
-
-
 
 
         //Add context menus to each row so we can pull the specific product instance
@@ -132,29 +92,14 @@ public class productsController implements ControlledScreen
         });
 
 
-        /*
-        ContextMenu menu = new ContextMenu();
-        MenuItem copyItem = new MenuItem("Edit Product       ");
-
-        menu.getItems().addAll(copyItem);
-
-        copyItem.setOnAction(e -> editProductUI.createUI());
-
-        table.setContextMenu(menu);
-        */
-
-
-
-        //table.setColumnResizePolicy(TreeTableView.UNCONSTRAINED_RESIZE_POLICY);
-
     }
 
 
 
     //This method is called within the action listener for displaying the attribute menu
-    private void ProductDetails(String product_category,String partNumber)
+    private void ProductDetails(product product, String product_category,String partNumber)
     {
-        getProductDetails.getProperUI(product_category,partNumber);
+        getProductDetails.getProperUI(product,product_category,partNumber);
     }
 
     private void initSearchField()
