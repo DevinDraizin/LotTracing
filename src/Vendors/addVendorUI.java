@@ -21,7 +21,7 @@ import javafx.stage.StageStyle;
 public class addVendorUI
 {
 
-    private static void addBuyer(ObservableList<vendor> vendorList, JFXTextField input, Stage window)
+    private static void addVendor(ObservableList<vendor> vendorList, JFXTextField input, Stage window)
     {
         if(input.getText().isEmpty())
         {
@@ -85,7 +85,7 @@ public class addVendorUI
 
         cancelButton.setOnAction(e -> window.close());
 
-        addButton.setOnAction(event -> addBuyer(vendorList,input,window));
+        addButton.setOnAction(event -> addVendor(vendorList,input,window));
 
 
         mainLayout.setTop(headerLayout);
