@@ -30,11 +30,14 @@ public class utilities
     {
         int n;
 
-        do { n = 10000000 + rnd.nextInt(90000000); }while(!DAL.componentDAO.checkComponentLotNum(String.valueOf(n)));
+        do { n = 10000000 + rnd.nextInt(90000000);
+        }while(!DAL.componentDAO.checkComponentLotNum(String.valueOf(n)));
 
         return String.valueOf(n);
     }
 
+
+    //Generate random numeric string of size 'size'
     public static String generateRandomNumericString(int size)
     {
         return String.valueOf(size < 1 ? 0 : new Random()
@@ -43,12 +46,15 @@ public class utilities
     }
 
 
+    //This date convention will be invalid after 2068-12-31 unless we encode the year
+    //Using a different convention
+
     //Here we will take a Date object and convert it
     //to a 3 character encoded string.
     //
     //first character is a base 52 year code A = 2017 B = 2018 and so on until Z then a - z
     //second character is base 12 month code 0 - 9 and then A - C
-    //third character is base 31 day code 0 - 9 and then A - U
+    //third character is base 31 day code 0 - 9 and then A - V
     public static String dateToCodeConversion(LocalDate date)
     {
         String encodedDate;
@@ -119,12 +125,18 @@ public class utilities
         }
 
 
-
-
         encodedDate = String.valueOf(encodedYear) + String.valueOf(encodedMonth) + String.valueOf(encodedDay);
 
 
         return encodedDate;
+    }
+
+    //To validate a date code we check against a
+    //regular expression to enforce length constraints
+    //and then individual character constraints
+    public static boolean validateDateCode(String code)
+    {
+        return Pattern.matches("([A-Z]|[a-z])([1-9]|[A-C])([1-9]|[A-V])", code);
     }
 
 
@@ -139,11 +151,7 @@ public class utilities
         int monthBaseline = 10;
         int dayBaseline = 10;
 
-        if(code.length() != 3)
-        {
-            return null;
-        }
-        else if(!Pattern.matches("([A-Z]|[a-z])([1-9]|[A-C])([1-9]|[A-V])",code))
+        if(!validateDateCode(code))
         {
             return null;
         }
