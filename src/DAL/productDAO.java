@@ -69,6 +69,44 @@ public class productDAO
         return product;
     }
 
+    //Returns true if num is unique and false if it is found
+    //in the product
+    public static boolean checkUpc(String upc)
+    {
+        PreparedStatement stmt = null;
+        ResultSet myRst = null;
+
+        //We are only checking the last 4 so we don't care what it looks like before that
+        upc = "%" + upc;
+
+        try
+        {
+            String pstmt = "SELECT COUNT(UPC) FROM Products WHERE UPC LIKE ?;";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            stmt.setString(1,upc);
+            myRst = stmt.executeQuery();
+
+            myRst.next();
+
+            return myRst.getInt(1) == 0;
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try { if (myRst != null) myRst.close(); } catch (Exception ignored) {}
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+        //we should never get here unless the database fails in which case
+        //we default to not allowing creation of new component lot numbers to
+        //preserve data integrity
+        return false;
+    }
+
     //returns true if partNumber is NOT in the table and
     //false otherwise.
     public static boolean checkPartNumber(String partNumber)
