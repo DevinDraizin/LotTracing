@@ -8,7 +8,8 @@ import javafx.beans.value.ObservableValue;
 
 
 //This is a DAO for the Ordered Part table
-public class orderedPart extends RecursiveTreeObject<orderedPart> {
+public class orderedPart extends RecursiveTreeObject<orderedPart>
+{
     //TransactionID is the primary key for the table
     //and is auto incremented
     public SimpleIntegerProperty transactionID;
@@ -19,7 +20,8 @@ public class orderedPart extends RecursiveTreeObject<orderedPart> {
     public ObservableValue<Double> price;
     public ObservableValue<Double> totalPrice;
 
-    public orderedPart(Integer transactionID, String partNumber, Integer QtyOrdered, String PONumber, String description, Double price, Double totalPrice) {
+    public orderedPart(Integer transactionID, String partNumber, Integer QtyOrdered,
+                       String PONumber, String description, Double price, Double totalPrice) {
         this.transactionID = new SimpleIntegerProperty(transactionID);
         this.partNumber = new SimpleStringProperty(partNumber);
         this.QtyOrdered = new SimpleIntegerProperty(QtyOrdered);
@@ -38,5 +40,7 @@ public class orderedPart extends RecursiveTreeObject<orderedPart> {
         this.price = null;
         this.totalPrice = null;
     }
+
+
 
 }

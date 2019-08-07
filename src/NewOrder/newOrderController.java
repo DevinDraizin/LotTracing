@@ -281,7 +281,7 @@ public class newOrderController implements ControlledScreen
         HBox headerBox = new HBox();
         headerBox.setAlignment(Pos.CENTER);
 
-        Label header = new Label("Enter Quantity");
+        Label header = new Label(product.productName.get());
         header.getStyleClass().add("header-label");
 
         JFXTextField input = new JFXTextField();
