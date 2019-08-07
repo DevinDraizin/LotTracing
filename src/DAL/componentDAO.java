@@ -1,6 +1,7 @@
 package DAL;
 
 import Components.component;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
@@ -95,6 +96,46 @@ public class componentDAO
         component.section = new SimpleStringProperty(myRs.getString(3));
 
         return component;
+    }
+
+    //This method returns a component object
+    //with data from the database with
+    //provided part number. If id does not exist in
+    //database we return null
+    public static component getComponent(String partNumber)
+    {
+        PreparedStatement stmt = null;
+        ResultSet myRst = null;
+        component component = new component();
+
+
+        try
+        {
+            String pstmt = "SELECT * FROM Components_Part_Numbers WHERE Component_Part_Number = ?";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            stmt.setString(1,partNumber);
+            myRst = stmt.executeQuery();
+
+            myRst.next();
+
+            component.partNumber = new SimpleStringProperty(myRst.getString(1));
+            component.description = new SimpleStringProperty(myRst.getString(2));
+            component.section = new SimpleStringProperty(myRst.getString(3));
+
+            return component;
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try { if (myRst != null) myRst.close(); } catch (Exception ignored) {}
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+        return null;
     }
 }
 
