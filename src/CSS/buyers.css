@@ -137,6 +137,11 @@
     -fx-tree-table-rippler-color : rgba(115, 201, 203, 0.9);
 }
 
+.tree-table-cell {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
 
 .tree-table-view:focused .tree-table-row-cell:selected {
     -fx-background-color: -fx-tree-table-color  ;
