@@ -1,5 +1,6 @@
 package Components;
 
+import Commons.UIComponents.tableViews;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.collections.FXCollections;
@@ -41,12 +42,12 @@ public class componentsController implements ControlledScreen
     private void initComponentTable()
     {
         String nullCharacter = "--";
-        Commons.UIComponents.initComponentTable(table,componentList, nullCharacter);
+        tableViews.initComponentTable(table,componentList, nullCharacter);
     }
 
     private void initSearchField()
     {
-        Commons.UIComponents.initComponentSearchField(searchField,table);
+        tableViews.initComponentSearchField(searchField,table);
     }
 
     public void goBack()
