@@ -4,18 +4,11 @@ import ProductBuilder.productCategory;
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.octicons.OctIcon;
 import de.jensd.fx.glyphs.octicons.OctIconView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -68,6 +61,8 @@ public class addProductUI
     {
         return attributes != null && attributes.attributes != null && !attributes.attributes.isEmpty();
     }
+
+
 
     private static void addProduct(ObservableList<product> productList, Stage window,JFXComboBox<String> productCategoryDrop)
     {

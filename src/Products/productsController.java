@@ -2,10 +2,9 @@ package Products;
 
 
 import Commons.staticLookupCommons;
+import Commons.UIComponents.tableViews;
 import com.jfoenix.controls.*;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,8 +56,7 @@ public class productsController implements ControlledScreen
     //we can create a popup with relevant data about the source
     private void initTable()
     {
-
-        Commons.UIComponents.initProductTable(table,productList,nullCharacter);
+        tableViews.initProductTable(table,productList,nullCharacter);
 
         //This is the action listener responsible for displaying
         //an attribute menu on double click

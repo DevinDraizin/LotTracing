@@ -2,7 +2,6 @@ package Products;
 
 
 import Commons.utilities;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
