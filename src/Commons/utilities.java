@@ -1,9 +1,12 @@
 package Commons;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Random;
 import java.util.regex.Pattern;
 
@@ -21,6 +24,11 @@ public class utilities
         content.putString(msg);
 
         clipboard.setContent(content);
+    }
+
+    public static SimpleStringProperty formatLocalDate(LocalDate date)
+    {
+        return new SimpleStringProperty(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
     }
 
     //Generate a unique Component Lot Number

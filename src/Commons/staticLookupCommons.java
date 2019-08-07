@@ -11,6 +11,10 @@ import java.util.regex.Pattern;
 
 public class staticLookupCommons
 {
+    //This will be the default set method for default
+    //strings in most of the UI components. If the input
+    //string is NULL we will default to an empty string
+    //unless we override the default string
     public static String checkNull(String in)
     {
         return (in != null) ? in : "";
