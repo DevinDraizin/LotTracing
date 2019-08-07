@@ -52,6 +52,18 @@ public class Main extends Application
     public static String screen11File = "/ProductBuilder/productBuilder.fxml";
 
 
+    private void shutdown()
+    {
+        //Before we shut down the application we need to
+        //terminate the database connection
+        try {
+            DAL.DBConnectionManager.closeConnection();
+        } catch (SQLException e) {
+            System.out.println("Failed to close database connection");
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage)
     {
@@ -63,7 +75,7 @@ public class Main extends Application
         {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Database Error");
-            error.setHeaderText("Database connection failed\nPlease make sure that the database is online");
+            error.setHeaderText("Database connection failed\nPlease make sure the database is online");
             error.showAndWait();
 
             return;
@@ -93,16 +105,12 @@ public class Main extends Application
         primaryStage.show();
 
 
-        //Before we shut down the application we need to
-        //terminate the database connection
+        //Call shutdown() before closing application
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
-            try {
-                DAL.DBConnectionManager.closeConnection();
-            } catch (SQLException e) {
-                System.out.println("Failed to close database connection");
-                e.printStackTrace();
-            }
+
+            shutdown();
+
             primaryStage.close();
         });
 
