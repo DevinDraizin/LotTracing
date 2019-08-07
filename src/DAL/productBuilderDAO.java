@@ -103,6 +103,39 @@ public class productBuilderDAO
 
     }
 
+    //This methods will return a integer that represents a primary key in
+    //the product category table for the product category specified otherwise
+    //we return -1 if we cant find it
+    public static int resolveProductCategory(String category)
+    {
+        PreparedStatement stmt = null;
+        ResultSet myRst;
+
+        try
+        {
+            String pstmt = "SELECT ID FROM Product_Categories WHERE Product_Category = ?";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+            stmt.setString(1,category);
+
+            myRst = stmt.executeQuery();
+
+            myRst.next();
+
+            return myRst.getInt(1);
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+        return -1;
+    }
+
     //This statement is responsible for initializing the 'dataNames' array with the names of all the columns in the respective table
     //except for the primary key.
     public static void getCategoryDetailsPartial(ArrayList<String> dataNames, String table)
