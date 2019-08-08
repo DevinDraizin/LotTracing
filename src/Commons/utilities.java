@@ -31,6 +31,12 @@ public class utilities
         return new SimpleStringProperty(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
     }
 
+    public static boolean validateAssemblyLotPartNumber(String num)
+    {
+        return num.matches("([A-Z]|[a-z])([1-9]|[A-C])([1-9]|[A-V])([0-9]{4})(([A-Z]|[a-z]){2})([A-Z]|[a-z]|[0-9])");
+    }
+
+
     //Generate a unique Component Lot Number
     //8 digit integer that does not exist in
     //the Component_Lots table
@@ -44,6 +50,21 @@ public class utilities
         return String.valueOf(n);
     }
 
+    //Generates a random alphanumeric string of size 'size'
+    public static String generateRandomAlphaNumericString(int size)
+    {
+        String key = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        StringBuilder result = new StringBuilder();
+
+        for(int i=0; i<size; i++)
+        {
+            result.append(key.charAt(rnd.nextInt(key.length())));
+        }
+
+        return result.toString();
+    }
+
+
 
     //Generate random numeric string of size 'size'
     public static String generateRandomNumericString(int size)
@@ -52,6 +73,7 @@ public class utilities
                 .nextInt((9 * (int) Math.pow(10, size - 1)) - 1)
                 + (int) Math.pow(10, size - 1));
     }
+
 
 
     //This date convention will be invalid after 2068-12-31 unless we encode the year
