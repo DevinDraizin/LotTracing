@@ -191,7 +191,7 @@ public class productDAO
             stmt.setDouble(6,product.price.getValue());
             stmt.setString(7,product.UPC == null ? null : product.UPC.getValue());
             stmt.setString(8,product.productCategory.getValue());
-            stmt.setString(9,product.lotSuffix == null ? null : product.lotSuffix.getValue());
+            stmt.setString(9,product.lotSuffix.getValue());
 
             stmt.executeUpdate();
 
