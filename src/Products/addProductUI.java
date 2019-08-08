@@ -37,7 +37,7 @@ public class addProductUI
     static productCategory attributes = new productCategory();
 
     private static int lastInsertedIndex = -1;
-    private static int lotSuffixMaxLength = 3;
+    private static int lotSuffixMaxLength = 2;
 
 
     private static boolean validateDoubles()
@@ -69,7 +69,8 @@ public class addProductUI
         Alert err = new Alert(Alert.AlertType.ERROR);
 
         if (!partNumberField.getText().isEmpty() && !productNameField.getText().isEmpty()
-                && !UOMFields.getValue().isEmpty() && !costField.getText().isEmpty() && !priceField.getText().isEmpty())
+                && !UOMFields.getValue().isEmpty() && !costField.getText().isEmpty() &&
+                !priceField.getText().isEmpty() && !lotSuffix.getText().isEmpty())
         {
             if(!DAL.productDAO.checkPartNumber(partNumberField.getText()))
             {
@@ -93,6 +94,15 @@ public class addProductUI
             {
                 err.setTitle("Invalid Input");
                 err.setHeaderText("Please make sure all product attributes have been entered");
+                err.show();
+
+                return;
+            }
+
+            if(!lotSuffix.getText().matches("(([A-Z]|[a-z]){2})"))
+            {
+                err.setTitle("Invalid Input");
+                err.setHeaderText("Please make you enter a valid (2 character) lot suffix");
                 err.show();
 
                 return;
