@@ -34,7 +34,7 @@
                                        <children>
                                           <JFXTextField fx:id="lotNumberTextField" alignment="CENTER" labelFloat="true" promptText="Lot #">
                                              <tooltip>
-                                                <Tooltip text="Purchase Order Number" />
+                                                <Tooltip text="Component Lot Number" />
                                              </tooltip>
                                           </JFXTextField>
                                           <JFXButton onAction="#generateLotNumber" styleClass="primary-button-1" text="Generate" />
@@ -42,7 +42,7 @@
                                     </HBox>
                                     <JFXTextField fx:id="vendorPOField" alignment="CENTER" labelFloat="true" promptText="Vendor PO #">
                                        <tooltip>
-                                          <Tooltip text="Sales Order Number" />
+                                          <Tooltip text="Vendor purchase order number" />
                                        </tooltip>
                                     </JFXTextField>
                                  </children>

@@ -1,6 +1,7 @@
 package LotNumbers;
 
 
+import Commons.UIComponents.tableViews;
 import Components.component;
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.octicons.OctIcon;
@@ -83,14 +84,14 @@ public class componentLotController
     private void initComponentTable()
     {
         String nullCharacter = "--";
-        Commons.UIComponents.initComponentTable(componentTable,componentList, nullCharacter);
+        tableViews.initComponentTable(componentTable,componentList, nullCharacter);
 
     }
 
     //Called from initialize method of parent controller
     void initSearchField(JFXTextField searchField)
     {
-        Commons.UIComponents.initComponentSearchField(searchField,componentTable);
+        tableViews.initComponentSearchField(searchField,componentTable);
     }
 
     //This will set the textfield value to a generated
@@ -114,6 +115,8 @@ public class componentLotController
     //DO NOT CALL DIRECTLY
     //If this is called after validateLot() then
     //createLot() will fail miserably
+    //we should enforce this buy setting flag
+    //when its safe to call
     private void clearFields()
     {
         lotNumberTextField.clear();
@@ -133,7 +136,10 @@ public class componentLotController
 
     }
 
-
+    //Here we are going to add the new component lot to the
+    //database. To do that we need to sanitize all inputs and
+    //then we create the component lot object before we can
+    //add it to the database through the DAL
     private void createLot(JFXTextField input, Stage window)
     {
         String in = input.getText();
@@ -181,11 +187,11 @@ public class componentLotController
 
         //Now we can insert the new component lot into the database and then clear all fields for cleanup
 
-        boolean outcome = DAL.lotNumbersDAO.insertComponentLot(lot);
+        boolean insert = DAL.lotNumbersDAO.insertComponentLot(lot);
 
         Alert success = new Alert(Alert.AlertType.CONFIRMATION);
 
-        if(outcome)
+        if(insert)
         {
             success.setTitle("Success");
             success.setHeaderText("Successfully created component lot");
@@ -255,8 +261,7 @@ public class componentLotController
     }
 
 
-    //Create a small UI for extracting qty as well as calling the create lot
-    //method.
+    //Create a small UI for extracting qty as well as calling the create lot method.
     public void getQty()
     {
         if(!validateLot())

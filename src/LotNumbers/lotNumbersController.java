@@ -17,11 +17,15 @@ public class lotNumbersController implements ControlledScreen
 {
 
     public AnchorPane componentSource;
+    public AnchorPane assemblySource;
 
     ScreensController myController;
 
     @FXML
     componentLotController componentSourceController;
+
+    @FXML
+    assemblyLotController assemblySourceController;
 
     @FXML
     JFXTabPane tabLayout;
@@ -47,11 +51,14 @@ public class lotNumbersController implements ControlledScreen
         //call the update function inside the component controller
         //to query the database again
         componentSourceController.updateComponentTable();
+        assemblySourceController.updateAssemblyTable();
     }
 
     public void initialize()
     {
         componentSourceController.setParentController(this);
+        assemblySourceController.setParentController(this);
+
         componentSourceController.initSearchField(searchField);
         searchField.setVisible(false);
         tabLayout.getSelectionModel().select(1);
@@ -70,16 +77,18 @@ public class lotNumbersController implements ControlledScreen
 
     public void goToComponent()
     {
+        componentSourceController.updateComponentTable();
         tabLayout.getSelectionModel().select(0);
-        headerLabel.setText("Component Lot Numbers");
+        headerLabel.setText("Create Component Lot");
         componentSource.requestFocus();
         searchField.setVisible(true);
     }
 
     public void goToAssembly()
     {
+        assemblySourceController.updateAssemblyTable();
         tabLayout.getSelectionModel().select(2);
-        headerLabel.setText("Assembly Lot Numbers");
+        headerLabel.setText("Create Assembly Lot");
 
     }
 
