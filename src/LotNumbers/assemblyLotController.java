@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class assemblyLotController
@@ -164,6 +165,7 @@ public class assemblyLotController
             }
         }
 
+
         return flag;
     }
 
@@ -216,14 +218,38 @@ public class assemblyLotController
     //This handles creating the actual assembly lot. To do
     //this we first need to sanitize all of the input, then
     //assemble the assembly lot number, and finally, add
-    //the new assembly lot to the database
+    //the new assembly lot to the database. Additionally,
+    //we have to add the associated component lots to
+    //the lot bridge
     public void createLot()
     {
-        boolean success;
+        boolean assemblyLotSuccess, bridgeSuccess = true;
 
         if(!sanitizeInputs())
         {
             return;
+        }
+
+        if(componentLotTable.getSelectionModel().getSelectedItems().isEmpty())
+        {
+            Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+            conf.setTitle("Confirmation");
+            conf.setHeaderText("There are no component lots selected");
+            conf.setContentText("Do you want to create the assembly lot anyway?");
+
+            ButtonType yes = new ButtonType("Yes");
+            ButtonType  no = new ButtonType("No");
+
+
+            conf.getButtonTypes().setAll(yes,no);
+            Optional<ButtonType> result = conf.showAndWait();
+
+
+            if(result.isPresent() && result.get() == no)
+            {
+                return;
+            }
+
         }
 
         //If we get here that means all inputs are valid
@@ -255,17 +281,46 @@ public class assemblyLotController
 
         //Now we need to store it in the database
 
-        success = DAL.lotNumbersDAO.insertAssemblyLot(newLot);
 
-        if(success)
+        assemblyLotSuccess = DAL.lotNumbersDAO.insertAssemblyLot(newLot);
+
+        if(!componentLotTable.getSelectionModel().getSelectedItems().isEmpty())
+        {
+            ArrayList<componentLot> componentLots = new ArrayList<>();
+
+
+            for(int i=0; i<componentLotTable.getSelectionModel().getSelectedItems().size(); i++)
+            {
+                //Stupid ass java8 bug workaround
+                if(componentLotTable.getSelectionModel().getSelectedItems().get(i) != null)
+                {
+                    componentLots.add(componentLotTable.getSelectionModel().getSelectedItems().get(i).getValue());
+                }
+            }
+
+            bridgeSuccess = DAL.lotNumbersDAO.insertAssemblyComponentLots(newLot.AssemblyLotNumber.get(),componentLots);
+        }
+
+
+
+        if(assemblyLotSuccess && bridgeSuccess)
         {
             Notifier.getSuccessNotification("Success!","Added " + newLot.AssemblyLotNumber.get() + " to database");
         }
-        else
+        else if(bridgeSuccess)
         {
             Notifier.getErrorNotification("Failed","Failed to add " + newLot.AssemblyLotNumber.get() + "to database");
         }
+        else if(assemblyLotSuccess)
+        {
+            Notifier.getErrorNotification("Failed","Failed to add one or more lot numbers to the bridge");
+        }
+        else
+        {
+            Notifier.getErrorNotification("Failed","Failed to update database");
+        }
 
+        goBack();
     }
 
     public void selectProduct(product product)
