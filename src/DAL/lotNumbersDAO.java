@@ -192,7 +192,7 @@ public class lotNumbersDAO
             stmt.setString(1,lot.AssemblyLotNumber.get());
             stmt.setDate(2,Date.valueOf(lot.assembleDate));
             stmt.setInt(3, lot.assembleQty.get());
-            stmt.setString(4,lot.memos.get());
+            stmt.setString(4,lot.memos == null ? "" : lot.memos.get());
             stmt.setString(5,lot.partNumber.get());
 
 
@@ -211,6 +211,57 @@ public class lotNumbersDAO
 
         return false;
     }
+
+    //Add the component lots associated with an assembly lot
+    //to the bridge
+    private static boolean insertSingleLotNumberBridge(String assemblyLot, String componentLot)
+    {
+        PreparedStatement stmt = null;
+
+        try
+        {
+            String pstmt = "INSERT INTO Lot_Number_Bridge (Component_Lot_Number, Assembly_Lot) VALUES (?,?);";
+
+            stmt = DBConnectionManager.con.prepareStatement(pstmt);
+
+            stmt.setString(1,componentLot);
+            stmt.setString(2,assemblyLot);
+
+            stmt.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try { if (stmt != null) stmt.close(); } catch (Exception ignored) {}
+        }
+
+        return false;
+    }
+
+
+    public static boolean insertAssemblyComponentLots(String assemblyLoy, ArrayList<componentLot> componentLots)
+    {
+        boolean flag, retVal = true;
+
+        for(int i=0; i<componentLots.size(); i++)
+        {
+           flag = insertSingleLotNumberBridge(assemblyLoy,componentLots.get(i).ComponentLotNumber.get());
+
+           if(!flag)
+           {
+               retVal = false;
+           }
+        }
+
+        return retVal;
+    }
+
+
 
 
 }
