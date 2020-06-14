@@ -333,6 +333,22 @@ public class newOrderController implements ControlledScreen
         totalPriceCol.setCellValueFactory(param -> param.getValue().getValue().totalPrice);
 
 
+        addedTable.setRowFactory(tableView -> {
+            final TreeTableRow<orderedPart> row = new TreeTableRow<>();
+            final ContextMenu contextMenu = new ContextMenu();
+            final MenuItem removeProduct = new MenuItem("     Remove Product    ");
+            removeProduct.setOnAction(event -> removeAddedProduct(row.getItem()));
+            contextMenu.getItems().add(removeProduct);
+            // Set context menu on row, but use a binding to make it only show for non-empty rows:
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty())
+                            .then((ContextMenu)null)
+                            .otherwise(contextMenu)
+            );
+            return row ;
+        });
+
+
         addedProductList = FXCollections.observableArrayList();
 
 
@@ -342,6 +358,13 @@ public class newOrderController implements ControlledScreen
         addedTable.getColumns().addAll(partNumberCol,descriptionCol,qtyCol,priceCol,totalPriceCol);
         addedTable.setRoot(root);
         addedTable.setShowRoot(false);
+    }
+
+    //called from context menu listener on the addedTable. just wrapping
+    //in this method for clarity and scalability
+    private void removeAddedProduct(orderedPart part)
+    {
+        addedProductList.remove(part);
     }
 
     public void nextPage()
@@ -431,11 +454,34 @@ public class newOrderController implements ControlledScreen
 
     public void createOrder()
     {
+        Alert err = new Alert(Alert.AlertType.ERROR);
+
         if(addedProductList.isEmpty())
         {
-            Alert err = new Alert(Alert.AlertType.ERROR);
             err.setTitle("Invalid Input Error");
             err.setHeaderText("You cannot create an empty purchase order");
+            err.setContentText("");
+            err.show();
+
+            return;
+        }
+
+        //Check for unique PO
+        if(!newOrderDAO.checkPurchaseOrderNum(POField.getText()))
+        {
+            err.setTitle("Duplicate Purchase Order");
+            err.setHeaderText("The Purchase Order Number already exists");
+            err.setContentText("");
+            err.show();
+
+            return;
+        }
+
+        //Check for unique SO
+        if(!newOrderDAO.checkSalesOrderNum(SOField.getText()))
+        {
+            err.setTitle("Duplicate Sales Order");
+            err.setHeaderText("The Sales Order Number already exists");
             err.setContentText("");
             err.show();
 
@@ -497,8 +543,9 @@ public class newOrderController implements ControlledScreen
         newOrder.SONumber = new SimpleStringProperty(SOField.getText());
         newOrder.PODate = orderDatePicker.getValue();
         newOrder.dueDate = dueDatePicker.getValue();
-        newOrder.buyerID = (DAL.buyerDAO.findBuyer(buyerName.getSelectionModel().getSelectedItem()));
+        newOrder.buyerID = new SimpleIntegerProperty(DAL.buyerDAO.findBuyer(buyerName.getSelectionModel().getSelectedItem()));
         newOrder.memos = new SimpleStringProperty("");
+        newOrder.complete = false;
         if(!memoField.getText().isEmpty())
         {
             newOrder.memos.setValue(memoField.getText());
@@ -534,6 +581,7 @@ public class newOrderController implements ControlledScreen
         }
     }
 
+    //This is only for readability
     public void addProduct()
     {
         checkSelectedElement();
