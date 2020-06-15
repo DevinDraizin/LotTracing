@@ -8,12 +8,19 @@ import Products.product;
 import com.jfoenix.controls.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.Optional;
 
 
@@ -72,6 +79,33 @@ public class assemblyLotController
     private void initComponentLotTable()
     {
         componentLotTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        //Enable better multiple selection of rows
+        componentLotTable.setRowFactory(param -> {
+
+            final TreeTableRow<componentLot> row = new TreeTableRow<>();
+
+            row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+
+                final int index = row.getIndex();
+
+                if(index >= 0 && index < componentLotTable.getCurrentItemsCount() &&
+                        componentLotTable.getSelectionModel().isSelected(index)) {
+
+                    componentLotTable.getSelectionModel().clearSelection(index);
+                    event.consume();
+                }
+                else if(!componentLotTable.getSelectionModel().isSelected(index))
+                {
+                    componentLotTable.getSelectionModel().select(index);
+                }
+            });
+
+            row.addEventFilter(MouseEvent.MOUSE_RELEASED, Event::consume);
+
+            return row;
+        });
+
 
         tableViews.initComponentLotTable(componentLotTable,componentLotList,nullCharacter);
 
@@ -252,6 +286,42 @@ public class assemblyLotController
 
         }
 
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Confirmation");
+        confirm.setHeaderText("Are you sure you want to create this lot?");
+
+        //List all of the associated component lots that will be tagged to the new assembly lot
+        StringBuilder confirmationContent = new StringBuilder("Assembled Product: ");
+        confirmationContent.append(assembledProduct.partNumber.get());
+
+        confirmationContent.append("\n\n\nComponent Lots Used:\n\n");
+
+        for(int j=0; j<componentLotTable.getSelectionModel().getSelectedItems().size(); j++)
+        {
+            confirmationContent.append("Lot Number: ");
+            confirmationContent.append(componentLotTable.getSelectionModel().getSelectedItems().get(j).getValue().ComponentLotNumber.get());
+            confirmationContent.append("\t\tPart Number: ");
+            confirmationContent.append(componentLotTable.getSelectionModel().getSelectedItems().get(j).getValue().componentPartNumber.get());
+            confirmationContent.append("\n");
+        }
+
+        confirmationContent.append("\n\n");
+
+        confirm.setContentText(confirmationContent.toString());
+
+        ButtonType yes = new ButtonType("Yes");
+        ButtonType  no = new ButtonType("No");
+
+
+        confirm.getButtonTypes().setAll(yes,no);
+        Optional<ButtonType> result = confirm.showAndWait();
+
+
+        if(result.isPresent() && result.get() == no)
+        {
+            return;
+        }
+
         //If we get here that means all inputs are valid
 
         //Now we need to assemble the new assembly lot object
@@ -291,7 +361,7 @@ public class assemblyLotController
 
             for(int i=0; i<componentLotTable.getSelectionModel().getSelectedItems().size(); i++)
             {
-                //Stupid ass java8 bug workaround
+                //Stupid java8 bug workaround
                 if(componentLotTable.getSelectionModel().getSelectedItems().get(i) != null)
                 {
                     componentLots.add(componentLotTable.getSelectionModel().getSelectedItems().get(i).getValue());
