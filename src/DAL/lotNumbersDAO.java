@@ -185,15 +185,16 @@ public class lotNumbersDAO
 
         try
         {
-            String pstmt = "INSERT INTO Assembly_Lot_Numbers (Assembly_Lot_Number, Assembly_Date, Assembly_Qty, Memo, Part_Number) VALUES (?,?,?,?,?);";
+            String pstmt = "INSERT INTO Assembly_Lot_Numbers (Assembly_Lot_Number, Assembly_Date, Assembly_Qty, Remaining_Qty ,Memo, Part_Number) VALUES (?,?,?,?,?,?);";
 
             stmt = DBConnectionManager.con.prepareStatement(pstmt);
 
             stmt.setString(1,lot.AssemblyLotNumber.get());
             stmt.setDate(2,Date.valueOf(lot.assembleDate));
             stmt.setInt(3, lot.assembleQty.get());
-            stmt.setString(4,lot.memos == null ? "" : lot.memos.get());
-            stmt.setString(5,lot.partNumber.get());
+            stmt.setInt(4,lot.remainingQty.get());
+            stmt.setString(5,lot.memos == null ? "" : lot.memos.get());
+            stmt.setString(6,lot.partNumber.get());
 
 
             stmt.executeUpdate();

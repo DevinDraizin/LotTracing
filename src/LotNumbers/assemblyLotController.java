@@ -370,6 +370,7 @@ public class assemblyLotController
         newLot.AssemblyLotNumber = new SimpleStringProperty(assemblyLotNumber);
         newLot.assembleDate = assemblyDatePicker.getValue();
         newLot.assembleQty = new SimpleIntegerProperty(Integer.parseInt(qtyField.getText()));
+        newLot.remainingQty = new SimpleIntegerProperty(Integer.parseInt(qtyField.getText()));
         newLot.partNumber = new SimpleStringProperty(assembledProduct.partNumber.get());
 
         if(!memoField.getText().isEmpty())
