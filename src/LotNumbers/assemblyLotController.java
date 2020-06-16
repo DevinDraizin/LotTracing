@@ -176,7 +176,6 @@ public class assemblyLotController
         parentController.tabLayout.getSelectionModel().select(1);
         parentController.searchField.setVisible(false);
         parentController.headerLabel.setText("Lot Numbers");
-        componentLotTable.getSelectionModel().getSelectedItems().clear();
         assembledProduct = null;
         updateLabel();
     }
