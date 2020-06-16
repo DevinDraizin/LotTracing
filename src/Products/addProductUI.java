@@ -99,6 +99,15 @@ public class addProductUI
                 return;
             }
 
+            if(UPCField.getText().length() < 5)
+            {
+                err.setTitle("Invalid Input");
+                err.setHeaderText("UPC must be at least 4 characters");
+                err.show();
+
+                return;
+            }
+
             if(!lotSuffix.getText().matches("(([A-Z]|[a-z]){2})"))
             {
                 err.setTitle("Invalid Input");
