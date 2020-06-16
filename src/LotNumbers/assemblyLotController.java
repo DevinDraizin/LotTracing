@@ -3,24 +3,21 @@ package LotNumbers;
 import Commons.UIComponents.popUps.Notifier;
 import Commons.UIComponents.popUps.componentDetailsPopUp;
 import Commons.UIComponents.tableViews;
-import Commons.utilities;
 import Products.product;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.Optional;
 
 
@@ -139,6 +136,38 @@ public class assemblyLotController
         }
     }
 
+    //Because Back is called from LotNumbersController via a reference to this
+    //controller we need to give it a method to call to clear out this page.
+    //We cant use the 'goBack' method which is only for sending us back to the
+    //main lot number page.
+    public void clearAll()
+    {
+        if(componentLotTable != null)
+        {
+            componentLotTable.getSelectionModel().clearSelection();
+        }
+
+        if(assemblyDatePicker != null)
+        {
+            assemblyDatePicker.setValue(null);
+        }
+
+        if(qtyField != null)
+        {
+            qtyField.clear();
+        }
+
+        parentController.searchField.setVisible(false);
+
+        assembledProduct = null;
+
+        if(productLabel != null)
+        {
+            updateLabel();
+        }
+
+    }
+
     //move to the home tab (center) then hide
     //the table search field. Then change the
     //header label back to the home tab header
@@ -147,6 +176,7 @@ public class assemblyLotController
         parentController.tabLayout.getSelectionModel().select(1);
         parentController.searchField.setVisible(false);
         parentController.headerLabel.setText("Lot Numbers");
+        componentLotTable.getSelectionModel().getSelectedItems().clear();
         assembledProduct = null;
         updateLabel();
     }

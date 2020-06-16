@@ -66,10 +66,13 @@ public class lotNumbersController implements ControlledScreen
 
     public void goBack()
     {
+        assemblySourceController.clearAll();
+
         if(!tabLayout.getSelectionModel().isSelected(1))
         {
             tabLayout.getSelectionModel().select(1);
         }
+
 
         myController.setScreen(Main.screen1ID);
     }
