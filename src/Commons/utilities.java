@@ -26,6 +26,11 @@ public class utilities
         clipboard.setContent(content);
     }
 
+    public static boolean isAlphaNumeric(String str)
+    {
+        return str.matches("^[a-zA-Z0-9]*$");
+    }
+
     public static SimpleStringProperty formatLocalDate(LocalDate date)
     {
         return new SimpleStringProperty(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
@@ -50,6 +55,30 @@ public class utilities
         return String.valueOf(n);
     }
 
+    //Generate a unique ShipID
+    //10 digit integer that does not exist in
+    //the Fulfillment table
+    public static String generateUniqueShipID()
+    {
+        StringBuilder n = new StringBuilder();
+
+        do {
+            n.append(rnd.nextInt(9)+1);
+
+            for(int i=0; i<9; i++)
+            {
+                n.append(rnd.nextInt(10));
+            }
+        }while (!DAL.ShipItemsDAO.checkShipIDNum(n.toString()));
+
+
+        return String.valueOf(n);
+    }
+
+
+
+
+
     //Generates a random alphanumeric string of size 'size'
     public static String generateRandomAlphaNumericString(int size)
     {
@@ -73,6 +102,7 @@ public class utilities
                 .nextInt((9 * (int) Math.pow(10, size - 1)) - 1)
                 + (int) Math.pow(10, size - 1));
     }
+
 
 
 
