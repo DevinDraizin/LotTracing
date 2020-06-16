@@ -70,7 +70,7 @@ public class addProductUI
 
         if (!partNumberField.getText().isEmpty() && !productNameField.getText().isEmpty()
                 && !UOMFields.getValue().isEmpty() && !costField.getText().isEmpty() &&
-                !priceField.getText().isEmpty() && !lotSuffix.getText().isEmpty())
+                !priceField.getText().isEmpty() && !lotSuffix.getText().isEmpty() && !UPCField.getText().isEmpty())
         {
             if(!DAL.productDAO.checkPartNumber(partNumberField.getText()))
             {
@@ -118,7 +118,7 @@ public class addProductUI
             String UOM = UOMFields.getValue();
             Double cost = Double.valueOf(costField.getText());
             Double price = Double.valueOf(priceField.getText());
-            String UPC = UPCField.getText().isEmpty() ? null : UPCField.getText();
+            String UPC = UPCField.getText();
             String productCategory = productCategoryDrop.getValue();
             String suffix = lotSuffix.getText().isEmpty() ? null : lotSuffix.getText();
 
