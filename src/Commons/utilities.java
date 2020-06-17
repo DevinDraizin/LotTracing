@@ -26,6 +26,28 @@ public class utilities
         clipboard.setContent(content);
     }
 
+    //returns a positive int or a -1
+    public static int getPositiveInt(String num)
+    {
+        int qty;
+
+        try
+        {
+            qty = Integer.parseInt(num);
+        }
+        catch (NumberFormatException e)
+        {
+            return -1;
+        }
+
+        if(qty < 0)
+        {
+            return -1;
+        }
+
+        return qty;
+    }
+
     public static boolean isAlphaNumeric(String str)
     {
         return str.matches("^[a-zA-Z0-9]*$");
