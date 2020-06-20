@@ -22,6 +22,7 @@ import main.Main;
 import screensframework.ControlledScreen;
 import screensframework.ScreensController;
 
+import java.util.HashMap;
 
 
 /*
@@ -55,6 +56,8 @@ public class shipItemsController implements ControlledScreen
     ScreensController myController;
 
 
+    //Maps PO# to a map that maps a transaction_ID with an int (qty to ship)
+    private HashMap<String, HashMap<Integer, Integer>> shippedItemsMap;
 
     private ObservableList<purchaseOrder> POTableData;
     private ObservableList<orderedPartShipment> orderedPartShipmentsData = FXCollections.observableArrayList();
@@ -77,6 +80,17 @@ public class shipItemsController implements ControlledScreen
         initPartTable();
     }
 
+    private void initShippedItemsMap()
+    {
+        shippedItemsMap = new HashMap<>();
+
+        for(int i=0; i<POTableData.size(); i++)
+        {
+            shippedItemsMap.put(POTableData.get(i).PONumber.get(),new HashMap<>());
+        }
+
+    }
+
     private void initializePOTableData()
     {
         POTableData = FXCollections.observableArrayList();
@@ -84,6 +98,8 @@ public class shipItemsController implements ControlledScreen
 
         //Remove all complete purchase orders
         POTableData.removeIf(elem -> elem.complete);
+
+        initShippedItemsMap();
     }
 
     private void setPartsTable(String PO)
@@ -101,6 +117,11 @@ public class shipItemsController implements ControlledScreen
             Notifier.getWarningNotification("Invalid Input", "Quantity must be a positive number");
             return;
         }
+
+        //Update shipped map
+        String currPO = partsTable.getSelectionModel().getSelectedItem().getValue().orderedPart.PONumber.get();
+        Integer currPart = partsTable.getSelectionModel().getSelectedItem().getValue().orderedPart.transactionID.get();
+        shippedItemsMap.get(currPO).put(currPart,qty);
 
         partsTable.getSelectionModel().getSelectedItem().getValue().amountToShip.set(qty);
         partsTable.refresh();
@@ -203,6 +224,11 @@ public class shipItemsController implements ControlledScreen
             }
             else
             {
+                //Update shipped map
+                String currPO = partsTable.getSelectionModel().getSelectedItem().getValue().orderedPart.PONumber.get();
+                Integer currPart = partsTable.getSelectionModel().getSelectedItem().getValue().orderedPart.transactionID.get();
+                shippedItemsMap.get(currPO).put(currPart,qty);
+
                 //Update table then refresh to display the change
                 partsTable.getSelectionModel().getSelectedItem().getValue().amountToShip.set(qty);
                 partsTable.refresh();
@@ -239,6 +265,19 @@ public class shipItemsController implements ControlledScreen
             {
                 selectedPOLabel.setText("Selected Purchase Order:\t" + newValue.getValue().PONumber.get());
                 setPartsTable(newValue.getValue().PONumber.get());
+
+
+                for(int i=0; i<orderedPartShipmentsData.size(); i++)
+                {
+                    String currPO = orderedPartShipmentsData.get(i).orderedPart.PONumber.get();
+                    Integer currPart = orderedPartShipmentsData.get(i).orderedPart.transactionID.get();
+
+                    //If the ordered part is in the shipped map, update the table
+                    if(shippedItemsMap.get(currPO).containsKey(currPart))
+                    {
+                        orderedPartShipmentsData.get(i).amountToShip.set(shippedItemsMap.get(currPO).get(currPart));
+                    }
+                }
             }
 
         });
