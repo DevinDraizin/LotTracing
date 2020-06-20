@@ -67,7 +67,7 @@
          <top>
             <HBox alignment="CENTER" fillHeight="false" style="-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-color: white; -fx-background-color: linear-gradient(to bottom right, #73C9CB, #747ee1);" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton graphicTextGap="12.0" onAction="#goBack" styleClass="primary-button-1" text="Go Back">
+                  <JFXButton contentDisplay="RIGHT" graphicTextGap="12.0" onAction="#goBack" styleClass="primary-button-1" text="Go Back">
                      <font>
                         <Font size="20.0" />
                      </font>

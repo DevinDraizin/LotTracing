@@ -161,21 +161,13 @@ public class componentLotController
         }
         else
         {
-            try
-            {
-                qty = Integer.parseInt(in);
-            }
-            catch (NumberFormatException e)
+            qty = Commons.utilities.getPositiveInt(in);
+
+            if(qty == -1)
             {
                 conf.showAndWait();
                 return;
             }
-
-            if(qty < 1)
-            {
-                conf.showAndWait();
-            }
-
         }
 
         //If we reach here qty is now valid so we can extract the componentLot info
@@ -236,11 +228,12 @@ public class componentLotController
             return false;
         }
 
-        if(vendorDrop.getSelectionModel().isEmpty() || vendorPOField.getText().isEmpty() ||
-                lotNumberTextField.getText().isEmpty() || receiveDatePicker.getValue() == null)
+        if(vendorDrop.getSelectionModel().isEmpty() || (receiveDatePicker.getValue() == null)
+                || (lotNumberTextField.getText().isEmpty()  && Commons.utilities.isAlphaNumeric(vendorPOField.getText()))
+                || (vendorPOField.getText().isEmpty() && Commons.utilities.isAlphaNumeric(vendorPOField.getText())))
         {
             err.setTitle("No Input Error");
-            err.setHeaderText("Please make sure all fields have been completed");
+            err.setHeaderText("Please make sure all fields have been completed and are valid");
             err.showAndWait();
 
             return false;
