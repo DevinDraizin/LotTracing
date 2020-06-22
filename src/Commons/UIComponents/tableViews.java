@@ -3,16 +3,20 @@ package Commons.UIComponents;
 
 import Components.component;
 import LotNumbers.componentLot;
+import NewOrder.purchaseOrder;
 import Products.product;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
+import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
+
+import java.time.LocalDate;
 
 //We reuse a lot of UI components in each view that we
 //should probably source from methods here.
@@ -21,6 +25,72 @@ import javafx.scene.control.TreeTableView;
 //initialization factory to be configured and called from here
 public class tableViews
 {
+
+    public static void initPurchaseOrderTable(JFXTreeTableView<purchaseOrder> table, ObservableList<purchaseOrder> purchaseOrderList)
+    {
+        JFXTreeTableColumn<purchaseOrder,String> PONumberCol = new JFXTreeTableColumn<>("PO Number");
+        PONumberCol.setCellValueFactory(param -> param.getValue().getValue().PONumber);
+
+        JFXTreeTableColumn<purchaseOrder,String> SONumberCol = new JFXTreeTableColumn<>("SO Number");
+        SONumberCol.setCellValueFactory(param -> param.getValue().getValue().SONumber);
+
+        JFXTreeTableColumn<purchaseOrder, String> PODateCol = new JFXTreeTableColumn<>("PO Date");
+        PODateCol.setCellValueFactory(param -> Commons.utilities.formatLocalDate(param.getValue().getValue().PODate));
+
+        JFXTreeTableColumn<purchaseOrder,String> dueDateCol = new JFXTreeTableColumn<>("Due Date");
+        dueDateCol.setCellValueFactory(param -> Commons.utilities.formatLocalDate(param.getValue().getValue().dueDate));
+
+        JFXTreeTableColumn<purchaseOrder,String> completedCol = new JFXTreeTableColumn<>("Completed");
+        completedCol.setCellValueFactory(param -> param.getValue().getValue().complete ? new SimpleStringProperty("Yes") : new SimpleStringProperty("No"));
+
+        DAL.newOrderDAO.getPurchaseOrderList(purchaseOrderList);
+
+        /*
+        completedCol.setCellFactory(new Callback<TreeTableColumn<purchaseOrder, String>, TreeTableCell<purchaseOrder, String>>() {
+            @Override
+            public TreeTableCell<purchaseOrder, String> call(TreeTableColumn<purchaseOrder, String> param) {
+                return new JFXTreeTableCell<purchaseOrder,String>() {
+
+                    @Override
+                    public void updateItem(String item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+
+                        if (!isEmpty()) {
+
+                            TreeTableRow<purchaseOrder> row = this.getTreeTableRow();
+
+                            if(item.compareTo("No") == 0)
+                            {
+                                //this.setTextFill(Color.RED);
+                                //row.setTextFill(Color.RED);
+                                //row.setStyle("-fx-text-fill: red");
+                            }
+                            else
+                            {
+                                //this.setTextFill(Color.BLACK);
+                                //row.setTextFill(Color.BLACK);
+                                //row.setStyle("-fx-text-fill: black");
+                            }
+
+                            setText(item);
+                        }
+
+                    }
+                };
+            }
+        });
+        */
+
+        final TreeItem<purchaseOrder> root = new RecursiveTreeItem<>(purchaseOrderList, RecursiveTreeObject::getChildren);
+
+        table.getColumns().addAll(PONumberCol,SONumberCol,PODateCol,dueDateCol,completedCol);
+        table.setRoot(root);
+        table.setShowRoot(false);
+
+
+    }
+
     public static void initComponentTable(JFXTreeTableView<component> table, ObservableList<component> componentList, String nullCharacter)
     {
         JFXTreeTableColumn<component,String> partNumberCol = new JFXTreeTableColumn<>("Part Number");
