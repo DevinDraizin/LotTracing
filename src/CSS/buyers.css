@@ -1,5 +1,4 @@
 
-
 .desc-labels
 {
     -fx-text-fill: #4052af;
@@ -102,6 +101,7 @@
     -fx-font-size: 16px;
 }
 
+
 .combo-box-base .text{
     -fx-fill: black;
 }
@@ -144,7 +144,7 @@
 
 
 .tree-table-view:focused .tree-table-row-cell:selected {
-    -fx-background-color: -fx-tree-table-color  ;
+    -fx-background-color: -fx-tree-table-color;
     -fx-table-cell-border-color: -fx-tree-table-color;
 }
 
@@ -238,6 +238,7 @@
 }
 
 .tree-table-row-cell:selected .tree-table-cell {
+    -fx-background-color: #4052af;
     -fx-text-fill: white;
 }
 
@@ -249,6 +250,7 @@
     -fx-border-width: 0px;
 }
 
+/****************************************************/
 
 .jfx-date-picker {
     -jfx-default-color: #052b7e;
