@@ -34,7 +34,7 @@ public class editBuyerUI
             return;
         }
 
-        if(addBuyerUI.sanFields(buyerNameField,buyerEmailField,companyDrop,buyerPhoneField))
+        if(sanFields(buyerNameField,buyerEmailField,companyDrop,buyerPhoneField))
         {
 
             //Update buyer information in the buyer observable list
@@ -61,6 +61,28 @@ public class editBuyerUI
             success.show();
 
         }
+    }
+
+    //This method will check fields for no input as well as a valid phone number and email address
+    private static boolean sanFields(JFXTextField buyerNameField,JFXTextField buyerEmailField,JFXComboBox<String> companyDrop,JFXTextField buyerPhoneField)
+    {
+        if(buyerNameField.getText().isEmpty() || buyerEmailField.getText().isEmpty() || companyDrop.getSelectionModel().getSelectedItem().isEmpty() || buyerPhoneField.getText().isEmpty())
+        {
+            Alert err = new Alert(Alert.AlertType.ERROR);
+            err.setTitle("Validation Error");
+            err.setHeaderText("");
+            err.setContentText("One or more fields are empty");
+            err.show();
+
+            return false;
+        }
+
+        if(!Commons.staticLookupCommons.sanEmail(buyerEmailField.getText()))
+        {
+            return false;
+        }
+
+        return Commons.staticLookupCommons.sanPhone(buyerPhoneField.getText());
     }
 
     //This displays all the existing buyers in a combo box.
