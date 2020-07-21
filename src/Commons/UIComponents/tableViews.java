@@ -118,6 +118,14 @@ public class tableViews
         table.setShowRoot(false);
     }
 
+    public static void updateComponentTable(ObservableList<component> componentList, JFXTreeTableView<component> table)
+    {
+        componentList.clear();
+        DAL.componentDAO.getComponentsList(componentList);
+        table.refresh();
+
+    }
+
     public static void initComponentSearchField(JFXTextField searchField, JFXTreeTableView<component> table)
     {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> table.setPredicate(buyerTreeItem ->
